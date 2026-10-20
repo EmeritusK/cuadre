@@ -17,6 +17,8 @@
     "db:types": "npx supabase gen types typescript --local > lib/supabase/database.types.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "0.0.10",
+    "@supabase/supabase-js": "^2.38.4",
     "next": "^14.2.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
