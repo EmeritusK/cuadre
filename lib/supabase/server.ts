@@ -1,13 +1,14 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "./database.types";
 import { supabaseAnonKey, supabaseUrl } from "./env";
 
 /** Supabase client for Server Components, Route Handlers and Server Actions. */
-export function createClient() {
+export function createClient(): SupabaseClient<Database> {
   const cookieStore = cookies();
 
-  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+  const client = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
         return cookieStore.get(name)?.value;
@@ -28,4 +29,7 @@ export function createClient() {
       },
     },
   });
+
+  // @supabase/ssr 0.0.x types its return value against an older SupabaseClient generic.
+  return client as unknown as SupabaseClient<Database>;
 }
