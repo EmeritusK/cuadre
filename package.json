@@ -31,6 +31,7 @@
     "lucide-react": "^0.292.0",
     "next": "^14.2.35",
     "next-themes": "^0.2.1",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^1.2.0",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.10",
+    "@types/papaparse": "^5.3.10",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",
@@ -49,7 +51,8 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   },
   "packageManager": "pnpm@9.12.0"
 }
