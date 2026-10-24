@@ -101,7 +101,7 @@ const rowsJson = JSON.stringify(unique.map((p) => ({ ...p })));
 lines.push("-- Two sessions: a closed one and one counting right now.");
 lines.push("set local role postgres;");
 lines.push(`select set_config('request.jwt.claims', '{"sub":"${people[0][0]}","role":"authenticated"}', true);`);
-for (const name of ["Toma de cierre de semestre", "Toma mensual Bodega Norte"]) {
+for (const name of ["Toma de cierre de semestre", "Toma mensual de inventario"]) {
   lines.push(`select public.import_session('${org}', ${sql(name)}, 'inventario-sistema.csv', ${sql(rowsJson)}::jsonb);`);
 }
 lines.push(`update public.count_sessions set status = 'counting', created_at = now() - interval '9 hours' where org_id = '${org}';`);

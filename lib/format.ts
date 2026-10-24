@@ -1,11 +1,6 @@
 const LOCALE = "es-EC";
 
 const money = new Intl.NumberFormat(LOCALE, { style: "currency", currency: "USD" });
-const signedMoney = new Intl.NumberFormat(LOCALE, {
-  style: "currency",
-  currency: "USD",
-  signDisplay: "exceptZero",
-});
 const integer = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 0 });
 const quantity = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 3 });
 const percent = new Intl.NumberFormat(LOCALE, { style: "percent", maximumFractionDigits: 1 });
@@ -14,7 +9,12 @@ const date = new Intl.DateTimeFormat(LOCALE, { dateStyle: "medium" });
 const time = new Intl.DateTimeFormat(LOCALE, { hour: "2-digit", minute: "2-digit" });
 
 export const formatMoney = (value: number) => money.format(value);
-export const formatSignedMoney = (value: number) => signedMoney.format(value);
+/** −$3.412,80 / +$63,00: the sign leads, as accountants write it. */
+export function formatSignedMoney(value: number) {
+  const rounded = Math.round(value * 100) / 100;
+  if (rounded === 0) return money.format(0);
+  return `${rounded < 0 ? "\u2212" : "+"}${money.format(Math.abs(rounded))}`;
+}
 export const formatInteger = (value: number) => integer.format(value);
 export const formatQuantity = (value: number) => quantity.format(value);
 export const formatPercent = (ratio: number) => percent.format(ratio);
