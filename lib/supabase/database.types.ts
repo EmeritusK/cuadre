@@ -538,6 +538,7 @@ export type Database = {
           description: string | null;
           difference: number | null;
           difference_value: number | null;
+          exposure_value: number | null;
           id: string | null;
           last_counted_at: string | null;
           org_id: string | null;
