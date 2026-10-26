@@ -172,6 +172,42 @@ export type Database = {
           },
         ];
       };
+      invitations: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: string;
+          invited_by: string | null;
+          org_id: string;
+          role: Database["public"]["Enums"]["member_role"];
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          email: string;
+          id?: string;
+          invited_by?: string | null;
+          org_id: string;
+          role?: Database["public"]["Enums"]["member_role"];
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: string;
+          invited_by?: string | null;
+          org_id?: string;
+          role?: Database["public"]["Enums"]["member_role"];
+        };
+        Relationships: [
+          {
+            foreignKeyName: "invitations_org_id_fkey";
+            columns: ["org_id"];
+            isOneToOne: false;
+            referencedRelation: "organizations";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       memberships: {
         Row: {
           created_at: string;
@@ -663,6 +699,7 @@ export type Database = {
       };
     };
     Functions: {
+      accept_invitations: { Args: Record<PropertyKey, never>; Returns: number };
       can_count: { Args: { target_product: string }; Returns: boolean };
       has_role: {
         Args: { allowed: Database["public"]["Enums"]["member_role"][]; target_org: string };

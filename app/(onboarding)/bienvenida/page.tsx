@@ -18,6 +18,7 @@ export default async function WelcomePage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/ingresar");
 
+  await supabase.rpc("accept_invitations");
   const { count } = await supabase
     .from("memberships")
     .select("org_id", { count: "exact", head: true })

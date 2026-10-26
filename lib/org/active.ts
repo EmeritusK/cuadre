@@ -26,6 +26,9 @@ export const getActiveContext = cache(async (): Promise<ActiveContext> => {
   } = await supabase.auth.getUser();
   if (!user) redirect("/ingresar");
 
+  // Pending invitations for this email become memberships on first sight.
+  await supabase.rpc("accept_invitations");
+
   const [{ data: memberships }, { data: profile }] = await Promise.all([
     supabase
       .from("memberships")
