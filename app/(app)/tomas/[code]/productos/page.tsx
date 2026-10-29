@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LineChip } from "@/components/overview/session-overview";
 import { ProductFilters } from "@/components/products/product-filters";
+import { ExportButton } from "@/components/sessions/export-button";
 import { ProductSheet } from "@/components/products/product-sheet";
 import { PageHeader } from "@/components/shell/page-header";
 import { StatusMark } from "@/components/status-mark";
@@ -71,6 +72,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
       <PageHeader
         title={`Productos · ${sessionLabel(session.code)}`}
         description={`${formatInteger(total)} ${total === 1 ? "producto" : "productos"} con estos filtros`}
+        actions={<ExportButton code={session.code} />}
       />
       <div className="grid gap-4 p-4 sm:p-6">
         <ProductFilters
