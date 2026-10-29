@@ -9,7 +9,8 @@ export type ActionResult = { error?: string };
 
 async function updateStatus(code: number, from: "draft" | "counting", to: "counting" | "closed") {
   const { org, role } = await getActiveContext();
-  if (role !== "admin") return { error: "Solo un administrador puede cambiar el estado de la toma." };
+  if (role !== "admin")
+    return { error: "Solo un administrador puede cambiar el estado de la toma." };
 
   const supabase = createClient();
   const { data, error } = await supabase

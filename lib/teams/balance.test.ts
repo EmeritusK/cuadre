@@ -20,10 +20,13 @@ describe("balanceSuppliers", () => {
   });
 
   it("tops up teams that already carry products", () => {
-    const result = balanceSuppliers([{ id: "a", products: 10 }], [
-      { id: "busy", load: 100 },
-      { id: "idle", load: 5 },
-    ]);
+    const result = balanceSuppliers(
+      [{ id: "a", products: 10 }],
+      [
+        { id: "busy", load: 100 },
+        { id: "idle", load: 5 },
+      ],
+    );
     expect(result.get("idle")).toEqual(["a"]);
     expect(result.get("busy")).toEqual([]);
   });

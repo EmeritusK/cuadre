@@ -76,14 +76,18 @@ export async function getSessionOverview(sessionId: string): Promise<SessionOver
       .limit(8),
     supabase
       .from("session_product_status")
-      .select("id, sku, description, supplier_name, system_qty, counted_qty, difference_value, status, recount_requested")
+      .select(
+        "id, sku, description, supplier_name, system_qty, counted_qty, difference_value, status, recount_requested",
+      )
       .eq("session_id", sessionId)
       .eq("status", "faltante")
       .order("difference_value", { ascending: true })
       .limit(8),
     supabase
       .from("session_product_status")
-      .select("id, sku, description, supplier_name, system_qty, counted_qty, difference_value, status, recount_requested")
+      .select(
+        "id, sku, description, supplier_name, system_qty, counted_qty, difference_value, status, recount_requested",
+      )
       .eq("session_id", sessionId)
       .eq("status", "sobrante")
       .order("difference_value", { ascending: false })
@@ -123,19 +127,17 @@ export async function getSessionOverview(sessionId: string): Promise<SessionOver
   }
 
   const differences = [...(shortRes.data ?? []), ...(overRes.data ?? [])]
-    .map(
-      (row): DifferenceData => ({
-        id: row.id!,
-        sku: row.sku!,
-        description: row.description!,
-        supplierName: row.supplier_name!,
-        systemQty: num(row.system_qty),
-        countedQty: num(row.counted_qty),
-        differenceValue: num(row.difference_value),
-        status: row.status as CountStatus,
-        recountRequested: Boolean(row.recount_requested),
-      }),
-    )
+    .map((row): DifferenceData => ({
+      id: row.id!,
+      sku: row.sku!,
+      description: row.description!,
+      supplierName: row.supplier_name!,
+      systemQty: num(row.system_qty),
+      countedQty: num(row.counted_qty),
+      differenceValue: num(row.difference_value),
+      status: row.status as CountStatus,
+      recountRequested: Boolean(row.recount_requested),
+    }))
     .sort((a, b) => Math.abs(b.differenceValue) - Math.abs(a.differenceValue))
     .slice(0, 8);
 

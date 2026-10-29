@@ -14,7 +14,8 @@ export async function setRecountRequested(productId: string, requested: boolean)
     .update({ recount_requested: requested })
     .eq("id", productId)
     .select("id");
-  if (error || !data?.length) return { error: "No pudimos actualizar el producto. ¿La toma está cerrada?" };
+  if (error || !data?.length)
+    return { error: "No pudimos actualizar el producto. ¿La toma está cerrada?" };
 
   revalidatePath("/tomas/[code]", "layout");
   return {};

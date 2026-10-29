@@ -7,8 +7,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <Brand />
         <NetworkIllustration />
         <p className="relative mt-auto max-w-sm text-lg leading-relaxed text-night-fg/90">
-          Cada equipo es una línea, cada proveedor una estación. Mira la toma física avanzar en vivo y
-          encuentra dónde está la plata antes de cerrar.
+          Cada equipo es una línea, cada proveedor una estación. Mira la toma física avanzar en vivo
+          y encuentra dónde está la plata antes de cerrar.
         </p>
       </aside>
       <main className="flex items-center justify-center px-4 py-12 sm:px-8">

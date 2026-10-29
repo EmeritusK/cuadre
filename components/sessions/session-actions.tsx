@@ -32,11 +32,19 @@ export function SessionActions({ code, status, pendingProducts, unassignedSuppli
   if (status === "draft") {
     return (
       <Button
-        onClick={() => run(() => startCounting(code), "Conteo iniciado. La app móvil ya puede registrar.")}
+        onClick={() =>
+          run(() => startCounting(code), "Conteo iniciado. La app móvil ya puede registrar.")
+        }
         disabled={pending}
-        title={unassignedSuppliers ? `${unassignedSuppliers} proveedores siguen sin equipo` : undefined}
+        title={
+          unassignedSuppliers ? `${unassignedSuppliers} proveedores siguen sin equipo` : undefined
+        }
       >
-        {pending ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Play aria-hidden="true" />}
+        {pending ? (
+          <Loader2 className="animate-spin" aria-hidden="true" />
+        ) : (
+          <Play aria-hidden="true" />
+        )}
         Iniciar conteo
       </Button>
     );
@@ -57,8 +65,8 @@ export function SessionActions({ code, status, pendingProducts, unassignedSuppli
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded border border-rule bg-panel p-6 shadow-[0_24px_48px_-12px_rgba(11,18,48,0.4)]">
           <Dialog.Title className="text-lg font-bold">¿Cerrar {sessionLabel(code)}?</Dialog.Title>
           <Dialog.Description className="mt-2 text-sm leading-relaxed text-ink-muted">
-            Una toma cerrada queda en solo lectura: la app móvil deja de aceptar conteos y no se puede
-            reabrir.
+            Una toma cerrada queda en solo lectura: la app móvil deja de aceptar conteos y no se
+            puede reabrir.
             {pendingProducts > 0 ? (
               <strong className="mt-2 block text-short">
                 Quedan {pendingProducts} productos sin contar; se cerrarán como pendientes.
@@ -74,7 +82,11 @@ export function SessionActions({ code, status, pendingProducts, unassignedSuppli
               disabled={pending}
               onClick={() => run(() => closeSession(code), `${sessionLabel(code)} cerrada.`)}
             >
-              {pending ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Lock aria-hidden="true" />}
+              {pending ? (
+                <Loader2 className="animate-spin" aria-hidden="true" />
+              ) : (
+                <Lock aria-hidden="true" />
+              )}
               Cerrar toma
             </Button>
           </div>

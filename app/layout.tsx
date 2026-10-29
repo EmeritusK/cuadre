@@ -19,7 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es-EC" className={overpass.variable} suppressHydrationWarning>
       <body className="min-h-dvh font-sans">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
           <Toaster position="bottom-right" toastOptions={{ className: "font-sans" }} />
         </ThemeProvider>

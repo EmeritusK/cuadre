@@ -5,7 +5,11 @@ import { SignInForm } from "./sign-in-form";
 
 export const metadata: Metadata = { title: "Ingresar" };
 
-export default function SignInPage({ searchParams }: { searchParams: { next?: string; error?: string } }) {
+export default function SignInPage({
+  searchParams,
+}: {
+  searchParams: { next?: string; error?: string };
+}) {
   return (
     <>
       <h1 className="text-3xl font-extrabold tracking-tight">Ingresar</h1>

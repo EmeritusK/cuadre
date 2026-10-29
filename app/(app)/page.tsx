@@ -13,6 +13,7 @@ export default async function Home() {
     .order("code", { ascending: false })
     .limit(20);
 
-  const current = data?.find((s) => s.status === "counting") ?? data?.find((s) => s.status === "draft");
+  const current =
+    data?.find((s) => s.status === "counting") ?? data?.find((s) => s.status === "draft");
   redirect(current ? `/tomas/${current.code}` : "/tomas");
 }

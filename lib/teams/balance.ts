@@ -13,7 +13,9 @@ export function balanceSuppliers(
   if (teams.length === 0) return result;
 
   const loads = teams.map((team) => ({ ...team }));
-  const ordered = [...suppliers].sort((a, b) => b.products - a.products || a.id.localeCompare(b.id));
+  const ordered = [...suppliers].sort(
+    (a, b) => b.products - a.products || a.id.localeCompare(b.id),
+  );
   for (const supplier of ordered) {
     const lightest = loads.reduce((min, team) => (team.load < min.load ? team : min));
     lightest.load += supplier.products;

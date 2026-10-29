@@ -3,7 +3,14 @@ import { createClient } from "@/lib/supabase/server";
 
 export const PAGE_SIZE = 50;
 
-export const STATUS_FILTERS = ["todos", "diferencias", "faltante", "sobrante", "cuadrado", "pendiente"] as const;
+export const STATUS_FILTERS = [
+  "todos",
+  "diferencias",
+  "faltante",
+  "sobrante",
+  "cuadrado",
+  "pendiente",
+] as const;
 export type StatusFilter = (typeof STATUS_FILTERS)[number];
 
 export const SORTS = {
@@ -121,13 +128,17 @@ export async function getProductDetail(sessionId: string, productId: string) {
       .maybeSingle(),
     supabase
       .from("counts")
-      .select("id, pallets, layers, boxes, units, units_per_box, total, expires_on, condition, device, created_at, counted_by")
+      .select(
+        "id, pallets, layers, boxes, units, units_per_box, total, expires_on, condition, device, created_at, counted_by",
+      )
       .eq("product_id", productId)
       .order("created_at", { ascending: false }),
   ]);
   if (!product) return null;
 
-  const counterIds = [...new Set((counts ?? []).map((c) => c.counted_by).filter(Boolean))] as string[];
+  const counterIds = [
+    ...new Set((counts ?? []).map((c) => c.counted_by).filter(Boolean)),
+  ] as string[];
   const { data: profiles } = counterIds.length
     ? await supabase.from("profiles").select("id, full_name").in("id", counterIds)
     : { data: [] };
@@ -135,7 +146,10 @@ export async function getProductDetail(sessionId: string, productId: string) {
 
   return {
     product,
-    counts: (counts ?? []).map((c) => ({ ...c, counterName: c.counted_by ? names.get(c.counted_by) ?? null : null })),
+    counts: (counts ?? []).map((c) => ({
+      ...c,
+      counterName: c.counted_by ? (names.get(c.counted_by) ?? null) : null,
+    })),
   };
 }
 

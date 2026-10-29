@@ -23,7 +23,13 @@ export function SignUpForm() {
     <form action={action} className="grid gap-5" noValidate>
       {state.error ? <Alert tone="error">{state.error}</Alert> : null}
       <Field id="fullName" label="Nombre completo" error={state.fieldErrors?.fullName}>
-        <Input id="fullName" name="fullName" autoComplete="name" required {...invalid("fullName")} />
+        <Input
+          id="fullName"
+          name="fullName"
+          autoComplete="name"
+          required
+          {...invalid("fullName")}
+        />
       </Field>
       <Field id="email" label="Correo de trabajo" error={state.fieldErrors?.email}>
         <Input

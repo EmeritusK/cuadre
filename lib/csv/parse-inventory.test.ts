@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { parseDecimal, parseInventoryCsv } from "./parse-inventory";
 
-const HEADER = "SALDO;CODIGO_PRODUCTO;DESCRIPCION_PRODUCTO;COSTO_PRODUCTO;NOMBRE_BODEGA;PROV;UNIDAD_X_CAJA";
+const HEADER =
+  "SALDO;CODIGO_PRODUCTO;DESCRIPCION_PRODUCTO;COSTO_PRODUCTO;NOMBRE_BODEGA;PROV;UNIDAD_X_CAJA";
 
 describe("parseDecimal", () => {
   it.each([
@@ -36,7 +37,12 @@ describe("parseInventoryCsv", () => {
       unitsPerBox: 10,
       supplier: "Alimentos Andinos S.A.",
     });
-    expect(result.totals).toMatchObject({ accepted: 2, suppliers: 1, warehouses: 1, systemQty: 64 });
+    expect(result.totals).toMatchObject({
+      accepted: 2,
+      suppliers: 1,
+      warehouses: 1,
+      systemQty: 64,
+    });
     expect(result.totals.systemValue).toBeCloseTo(40 * 3.28034 + 24 * 1.04, 2);
   });
 
@@ -49,7 +55,9 @@ describe("parseInventoryCsv", () => {
   });
 
   it("skips rows with invalid numbers and keeps the rest", () => {
-    const result = parseInventoryCsv(`${HEADER}\nabc;111;Agua;0,56;B1;Prov;1\n3;222;Jugo;1,10;B1;Prov;6`);
+    const result = parseInventoryCsv(
+      `${HEADER}\nabc;111;Agua;0,56;B1;Prov;1\n3;222;Jugo;1,10;B1;Prov;6`,
+    );
     expect(result.rows.map((row) => row.sku)).toEqual(["222"]);
     expect(result.totals.skipped).toBe(1);
     expect(result.issues[0]).toMatchObject({ line: 2, severity: "error", column: "SALDO" });
@@ -74,7 +82,8 @@ describe("parseInventoryCsv", () => {
   });
 
   it("accepts comma-separated files and loose header spelling", () => {
-    const csv = "saldo,codigo producto,descripción producto,costo producto,nombre bodega,prov,unidad x caja\n2,9,Té,1.5,B,P,12";
+    const csv =
+      "saldo,codigo producto,descripción producto,costo producto,nombre bodega,prov,unidad x caja\n2,9,Té,1.5,B,P,12";
     const result = parseInventoryCsv(csv);
     expect(result.missingColumns).toEqual([]);
     expect(result.rows[0]).toMatchObject({ sku: "9", unitCost: 1.5, unitsPerBox: 12 });

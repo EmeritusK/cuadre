@@ -58,9 +58,14 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
     if (inputRef.current) inputRef.current.value = "";
   }
 
-  const errors = useMemo(() => result?.issues.filter((i) => i.severity === "error") ?? [], [result]);
+  const errors = useMemo(
+    () => result?.issues.filter((i) => i.severity === "error") ?? [],
+    [result],
+  );
   const fixes = useMemo(() => result?.issues.filter((i) => i.severity === "fixed") ?? [], [result]);
-  const visibleIssues = showAllIssues ? result?.issues ?? [] : (result?.issues ?? []).slice(0, ISSUE_PAGE);
+  const visibleIssues = showAllIssues
+    ? (result?.issues ?? [])
+    : (result?.issues ?? []).slice(0, ISSUE_PAGE);
 
   return (
     <form action={action} className="grid gap-8">
@@ -96,13 +101,16 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
             }}
             className={cn(
               "flex cursor-pointer flex-col items-center gap-3 rounded border-2 border-dashed px-6 py-12 text-center transition-colors",
-              dragging ? "border-cobalt bg-cobalt/5" : "border-rule-strong/30 bg-panel hover:border-rule-strong/60",
+              dragging
+                ? "border-cobalt bg-cobalt/5"
+                : "border-rule-strong/30 bg-panel hover:border-rule-strong/60",
             )}
           >
             <Upload className="size-7 text-ink-muted" aria-hidden="true" />
             <span className="text-base font-semibold">Arrastra el CSV aquí o elige un archivo</span>
             <span className="max-w-md text-sm text-ink-muted">
-              Columnas esperadas: {Object.values(COLUMNS).join(" · ")}. Separado por punto y coma o coma.
+              Columnas esperadas: {Object.values(COLUMNS).join(" · ")}. Separado por punto y coma o
+              coma.
             </span>
           </label>
         ) : (
@@ -110,7 +118,9 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
             <FileSpreadsheet className="size-6 text-ink-muted" aria-hidden="true" />
             <div className="min-w-0 flex-1">
               <p className="truncate font-semibold">{file.name}</p>
-              <p className="text-sm text-ink-muted">{formatInteger(Math.ceil(file.size / 1024))} KB</p>
+              <p className="text-sm text-ink-muted">
+                {formatInteger(Math.ceil(file.size / 1024))} KB
+              </p>
             </div>
             <Button type="button" variant="secondary" size="sm" onClick={reset}>
               <RefreshCw aria-hidden="true" />
@@ -129,8 +139,8 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
 
           {result.missingColumns.length > 0 ? (
             <Alert tone="error">
-              Al archivo le faltan columnas: <strong>{result.missingColumns.join(", ")}</strong>. Exporta el
-              reporte de saldos completo e inténtalo de nuevo.
+              Al archivo le faltan columnas: <strong>{result.missingColumns.join(", ")}</strong>.
+              Exporta el reporte de saldos completo e inténtalo de nuevo.
             </Alert>
           ) : (
             <>
@@ -164,7 +174,10 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
                   </div>
                   <ul className="max-h-72 divide-y divide-rule overflow-y-auto text-sm">
                     {visibleIssues.map((issue, index) => (
-                      <li key={`${issue.line}-${index}`} className="grid grid-cols-[4.5rem_1fr] gap-3 px-4 py-2">
+                      <li
+                        key={`${issue.line}-${index}`}
+                        className="grid grid-cols-[4.5rem_1fr] gap-3 px-4 py-2"
+                      >
                         <span className="text-ink-muted">Línea {issue.line}</span>
                         <span className={issue.severity === "error" ? "text-short" : "text-ink"}>
                           {issue.message}
@@ -174,7 +187,12 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
                   </ul>
                   {result.issues.length > ISSUE_PAGE && !showAllIssues ? (
                     <div className="border-t border-rule px-4 py-2">
-                      <Button type="button" variant="ghost" size="sm" onClick={() => setShowAllIssues(true)}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowAllIssues(true)}
+                      >
                         Ver las {formatInteger(result.issues.length)} observaciones
                       </Button>
                     </div>
@@ -193,12 +211,24 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
                     </caption>
                     <thead>
                       <tr className="border-y border-rule text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
-                        <th scope="col" className="px-4 py-2">Código</th>
-                        <th scope="col" className="px-4 py-2">Descripción</th>
-                        <th scope="col" className="px-4 py-2">Proveedor</th>
-                        <th scope="col" className="px-4 py-2 text-right">Saldo</th>
-                        <th scope="col" className="px-4 py-2 text-right">U/caja</th>
-                        <th scope="col" className="px-4 py-2 text-right">Costo</th>
+                        <th scope="col" className="px-4 py-2">
+                          Código
+                        </th>
+                        <th scope="col" className="px-4 py-2">
+                          Descripción
+                        </th>
+                        <th scope="col" className="px-4 py-2">
+                          Proveedor
+                        </th>
+                        <th scope="col" className="px-4 py-2 text-right">
+                          Saldo
+                        </th>
+                        <th scope="col" className="px-4 py-2 text-right">
+                          U/caja
+                        </th>
+                        <th scope="col" className="px-4 py-2 text-right">
+                          Costo
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -222,19 +252,32 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
       ) : null}
 
       {step === 2 ? (
-        <section aria-labelledby={`${dropId}-confirm`} className="grid gap-4 border-t border-rule pt-8">
+        <section
+          aria-labelledby={`${dropId}-confirm`}
+          className="grid gap-4 border-t border-rule pt-8"
+        >
           <h2 id={`${dropId}-confirm`} className="text-lg font-bold">
             3. Confirmar
           </h2>
           <div className="max-w-md">
-            <Field id="name" label="Nombre de la toma" hint="Aparece en la lista de tomas y en las exportaciones.">
-              <Input id="name" name="name" defaultValue={defaultName} required aria-describedby="name-hint" />
+            <Field
+              id="name"
+              label="Nombre de la toma"
+              hint="Aparece en la lista de tomas y en las exportaciones."
+            >
+              <Input
+                id="name"
+                name="name"
+                defaultValue={defaultName}
+                required
+                aria-describedby="name-hint"
+              />
             </Field>
           </div>
           <p className="text-sm text-ink-muted">
-            Se creará una toma en preparación con {formatInteger(result!.totals.accepted)} productos de{" "}
-            {formatInteger(result!.totals.suppliers)} proveedores. Después armarás los equipos e iniciarás el
-            conteo.
+            Se creará una toma en preparación con {formatInteger(result!.totals.accepted)} productos
+            de {formatInteger(result!.totals.suppliers)} proveedores. Después armarás los equipos e
+            iniciarás el conteo.
           </p>
           <SubmitButton size="lg" pendingLabel="Creando toma…" className="justify-self-start">
             Crear toma
@@ -265,7 +308,9 @@ function StepLine({ current }: { current: number }) {
               />
               <span className={cn("text-sm font-semibold", !done && !active && "text-ink-muted")}>
                 {label}
-                <span className="sr-only">{done ? " (completado)" : active ? " (actual)" : ""}</span>
+                <span className="sr-only">
+                  {done ? " (completado)" : active ? " (actual)" : ""}
+                </span>
               </span>
             </span>
             {index < STEPS.length - 1 ? (

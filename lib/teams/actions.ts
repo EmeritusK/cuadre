@@ -9,7 +9,11 @@ import { balanceSuppliers } from "./balance";
 export type TeamResult = { error?: string };
 
 const uuid = z.string().uuid();
-const teamName = z.string().trim().min(1, "Ponle un nombre al equipo").max(40, "Máximo 40 caracteres");
+const teamName = z
+  .string()
+  .trim()
+  .min(1, "Ponle un nombre al equipo")
+  .max(40, "Máximo 40 caracteres");
 
 async function authorize() {
   const context = await getActiveContext();
@@ -19,7 +23,10 @@ async function authorize() {
   return { context, supabase: createClient() } as const;
 }
 
-function done(error?: { message: string } | null, fallback = "No pudimos guardar el cambio."): TeamResult {
+function done(
+  error?: { message: string } | null,
+  fallback = "No pudimos guardar el cambio.",
+): TeamResult {
   revalidatePath("/tomas/[code]", "layout");
   return error ? { error: fallback } : {};
 }
@@ -32,7 +39,12 @@ export async function createTeam(sessionId: string, name: string): Promise<TeamR
 
   const { error } = await auth.supabase
     .from("teams")
-    .insert({ session_id: uuid.parse(sessionId), org_id: auth.context.org.id, name: parsed.data, code: 0 });
+    .insert({
+      session_id: uuid.parse(sessionId),
+      org_id: auth.context.org.id,
+      name: parsed.data,
+      code: 0,
+    });
   return done(error, "No pudimos crear el equipo. ¿La toma está cerrada?");
 }
 
@@ -42,7 +54,10 @@ export async function renameTeam(teamId: string, name: string): Promise<TeamResu
   const parsed = teamName.safeParse(name);
   if (!parsed.success) return { error: parsed.error.issues[0]?.message };
 
-  const { error } = await auth.supabase.from("teams").update({ name: parsed.data }).eq("id", uuid.parse(teamId));
+  const { error } = await auth.supabase
+    .from("teams")
+    .update({ name: parsed.data })
+    .eq("id", uuid.parse(teamId));
   return done(error);
 }
 
@@ -114,14 +129,19 @@ export async function unassignSupplier(teamId: string, supplierId: string): Prom
 }
 
 /** Assigns every supplier without a team, keeping product counts per team even. */
-export async function balanceUnassigned(sessionId: string): Promise<TeamResult & { assigned?: number }> {
+export async function balanceUnassigned(
+  sessionId: string,
+): Promise<TeamResult & { assigned?: number }> {
   const auth = await authorize();
   if ("error" in auth) return auth;
   const session = uuid.parse(sessionId);
 
   const [{ data: teams }, { data: progress }] = await Promise.all([
     auth.supabase.from("teams").select("id").eq("session_id", session),
-    auth.supabase.from("supplier_progress").select("supplier_id, team_id, products").eq("session_id", session),
+    auth.supabase
+      .from("supplier_progress")
+      .select("supplier_id, team_id, products")
+      .eq("session_id", session),
   ]);
   if (!teams?.length) return { error: "Crea al menos un equipo primero." };
 
@@ -133,7 +153,9 @@ export async function balanceUnassigned(sessionId: string): Promise<TeamResult &
 
   const loads = teams.map((team) => ({
     id: team.id,
-    load: rows.filter((row) => row.team_id === team.id).reduce((sum, row) => sum + Number(row.products), 0),
+    load: rows
+      .filter((row) => row.team_id === team.id)
+      .reduce((sum, row) => sum + Number(row.products), 0),
   }));
   const plan = balanceSuppliers(unassigned, loads);
 

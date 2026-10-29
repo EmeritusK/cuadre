@@ -26,9 +26,17 @@ export function StatusMark({
   const Icon = meta.icon;
   return (
     <span
-      className={cn("inline-flex items-center gap-1.5 text-sm font-semibold", meta.className, className)}
+      className={cn(
+        "inline-flex items-center gap-1.5 text-sm font-semibold",
+        meta.className,
+        className,
+      )}
     >
-      <Icon className={cn("size-3.5 shrink-0", status === "pendiente" && "size-3")} strokeWidth={2.75} aria-hidden="true" />
+      <Icon
+        className={cn("size-3.5 shrink-0", status === "pendiente" && "size-3")}
+        strokeWidth={2.75}
+        aria-hidden="true"
+      />
       <span className={cn(compact && "sr-only")}>{meta.label}</span>
     </span>
   );

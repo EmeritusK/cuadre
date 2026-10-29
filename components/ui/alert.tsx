@@ -20,7 +20,11 @@ export function Alert({
   return (
     <div
       role={tone === "error" ? "alert" : "status"}
-      className={cn("flex gap-3 rounded border px-3.5 py-3 text-sm leading-relaxed", toneClass, className)}
+      className={cn(
+        "flex gap-3 rounded border px-3.5 py-3 text-sm leading-relaxed",
+        toneClass,
+        className,
+      )}
     >
       <Icon className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
       <div className="text-ink">{children}</div>

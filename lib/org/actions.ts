@@ -34,11 +34,19 @@ export async function createOrganization(
     .single();
   if (error) return { error: "No pudimos crear la empresa. Intenta de nuevo." };
 
-  cookies().set(ACTIVE_ORG_COOKIE, data.id, { path: "/", sameSite: "lax", maxAge: 60 * 60 * 24 * 365 });
+  cookies().set(ACTIVE_ORG_COOKIE, data.id, {
+    path: "/",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 365,
+  });
   redirect("/tomas/nueva");
 }
 
 export async function switchOrganization(orgId: string) {
-  cookies().set(ACTIVE_ORG_COOKIE, orgId, { path: "/", sameSite: "lax", maxAge: 60 * 60 * 24 * 365 });
+  cookies().set(ACTIVE_ORG_COOKIE, orgId, {
+    path: "/",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 365,
+  });
   redirect("/");
 }

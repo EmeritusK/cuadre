@@ -6,9 +6,18 @@ import { CreateOrganizationForm } from "./create-organization-form";
 export const metadata: Metadata = { title: "Bienvenida" };
 
 const steps = [
-  { title: "Crea tu empresa", body: "Tus tomas, proveedores y equipos quedan separados de otras empresas." },
-  { title: "Importa el inventario", body: "Sube el CSV de saldos que exporta tu sistema contable." },
-  { title: "Arma los equipos", body: "Reparte los proveedores entre equipos y sigue cada línea en vivo." },
+  {
+    title: "Crea tu empresa",
+    body: "Tus tomas, proveedores y equipos quedan separados de otras empresas.",
+  },
+  {
+    title: "Importa el inventario",
+    body: "Sube el CSV de saldos que exporta tu sistema contable.",
+  },
+  {
+    title: "Arma los equipos",
+    body: "Reparte los proveedores entre equipos y sigue cada línea en vivo.",
+  },
 ];
 
 export default async function WelcomePage() {
@@ -34,7 +43,10 @@ export default async function WelcomePage() {
         {steps.map((step, index) => (
           <li key={step.title} className="relative grid grid-cols-[2rem_1fr] gap-4 pb-8 last:pb-0">
             {index < steps.length - 1 ? (
-              <span aria-hidden="true" className="absolute left-[0.9375rem] top-8 h-full w-0.5 bg-rule" />
+              <span
+                aria-hidden="true"
+                className="absolute left-[0.9375rem] top-8 h-full w-0.5 bg-rule"
+              />
             ) : null}
             <span
               aria-hidden="true"

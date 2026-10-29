@@ -138,7 +138,8 @@ export function parseInventoryCsv(input: string): ImportResult {
     if (!sku) error(COLUMNS.sku, "Falta el código del producto");
     if (!description) error(COLUMNS.description, "Falta la descripción");
     if (!supplier) error(COLUMNS.supplier, "Falta el proveedor");
-    if (systemQty === null) error(COLUMNS.systemQty, `Saldo "${cell("systemQty")}" no es un número`);
+    if (systemQty === null)
+      error(COLUMNS.systemQty, `Saldo "${cell("systemQty")}" no es un número`);
     if (unitCost === null) error(COLUMNS.unitCost, `Costo "${cell("unitCost")}" no es un número`);
     else if (unitCost < 0) error(COLUMNS.unitCost, "El costo no puede ser negativo");
 
@@ -185,7 +186,8 @@ export function parseInventoryCsv(input: string): ImportResult {
       suppliers: new Set(rows.map((row) => row.supplier)).size,
       warehouses: new Set(rows.map((row) => row.warehouse)).size,
       systemQty: rows.reduce((sum, row) => sum + row.systemQty, 0),
-      systemValue: Math.round(rows.reduce((sum, row) => sum + row.systemQty * row.unitCost, 0) * 100) / 100,
+      systemValue:
+        Math.round(rows.reduce((sum, row) => sum + row.systemQty * row.unitCost, 0) * 100) / 100,
     },
   };
 }

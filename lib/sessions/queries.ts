@@ -12,7 +12,9 @@ export const getSessionByCode = cache(async (rawCode: string) => {
   const supabase = createClient();
   const { data } = await supabase
     .from("count_sessions")
-    .select("id, code, name, status, source_filename, started_at, closed_at, created_at, warehouses(name)")
+    .select(
+      "id, code, name, status, source_filename, started_at, closed_at, created_at, warehouses(name)",
+    )
     .eq("org_id", context.org.id)
     .eq("code", code)
     .maybeSingle();

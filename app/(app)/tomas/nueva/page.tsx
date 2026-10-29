@@ -10,7 +10,9 @@ export default async function NewSessionPage() {
   const { role } = await getActiveContext();
   if (role !== "admin") redirect("/tomas");
 
-  const month = new Intl.DateTimeFormat("es-EC", { month: "long", year: "numeric" }).format(new Date());
+  const month = new Intl.DateTimeFormat("es-EC", { month: "long", year: "numeric" }).format(
+    new Date(),
+  );
 
   return (
     <>

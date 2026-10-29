@@ -12,22 +12,82 @@ const pick = (list) => list[Math.floor(random() * list.length)];
 const int = (min, max) => Math.floor(random() * (max - min + 1)) + min;
 
 const catalog = {
-  "Alimentos Andinos S.A.": [["Arroz grano largo", ["1kg", "2kg", "5kg"], [10, 12]], ["Azúcar blanca", ["1kg", "2kg"], [10, 20]], ["Sal yodada", ["500g", "1kg"], [24, 30]]],
-  "Pesquera del Pacífico": [["Atún en aceite", ["170g", "354g"], [24, 48]], ["Sardinas en tomate", ["155g", "425g"], [24, 48]]],
-  "Lácteos de la Sierra": [["Leche entera", ["1L", "200ml"], [12, 24]], ["Yogur de frutilla", ["1L", "200g"], [6, 12]], ["Queso fresco", ["500g"], [10]]],
-  "Molinos del Litoral": [["Harina de trigo", ["1kg", "2kg"], [10, 12]], ["Fideo tallarín", ["400g", "1kg"], [20, 24]], ["Avena en hojuelas", ["400g", "800g"], [12, 24]]],
-  "Hogar Limpio Cía. Ltda.": [["Detergente en polvo", ["500g", "1kg", "2kg"], [10, 12]], ["Cloro", ["1L", "2L"], [6, 12]], ["Lavavajilla en crema", ["500g", "1kg"], [12, 24]]],
-  "Bebidas Tropicales": [["Jugo de naranja", ["1L", "250ml"], [12, 24]], ["Agua sin gas", ["600ml", "1,5L"], [12, 24]], ["Bebida hidratante", ["500ml"], [12]]],
-  "Confites La Costa": [["Galleta de chocolate", ["120g", "6 pack"], [12, 24]], ["Caramelo surtido", ["100u"], [12]], ["Chocolate en barra", ["50g", "100g"], [24, 48]]],
-  "Cuidado Personal Andes": [["Champú", ["400ml", "750ml"], [12]], ["Jabón de tocador", ["3x110g"], [24]], ["Pasta dental", ["75ml", "150ml"], [24, 48]]],
-  "Conservas Manabí": [["Mermelada de mora", ["300g", "600g"], [12, 24]], ["Salsa de tomate", ["200g", "400g"], [24]], ["Mayonesa", ["200g", "400g"], [24]]],
-  "Granos del Valle": [["Lenteja", ["500g"], [24]], ["Fréjol rojo", ["500g"], [24]], ["Maíz tostado", ["500g"], [20]]],
-  "Snacks Pichincha": [["Papas fritas", ["45g", "150g"], [24, 48]], ["Chifles", ["50g", "150g"], [24]], ["Maní salado", ["100g"], [24]]],
-  "Café de Loja": [["Café molido", ["250g", "500g"], [12, 24]], ["Café soluble", ["50g", "170g"], [12]]],
-  "Aceites del Oriente": [["Aceite vegetal", ["1L", "2L", "5L"], [6, 12]], ["Manteca vegetal", ["500g", "1kg"], [12, 24]]],
-  "Papelera Austral": [["Papel higiénico", ["4 rollos", "12 rollos"], [6, 12]], ["Servilletas", ["100u", "300u"], [24]], ["Toalla de cocina", ["2 rollos"], [12]]],
-  "Especias Amazonía": [["Comino molido", ["50g"], [48]], ["Achiote", ["100g"], [24]], ["Orégano", ["25g"], [48]]],
-  "Mascotas Felices": [["Alimento para perro", ["2kg", "8kg"], [4, 10]], ["Alimento para gato", ["1kg", "3kg"], [6, 10]]],
+  "Alimentos Andinos S.A.": [
+    ["Arroz grano largo", ["1kg", "2kg", "5kg"], [10, 12]],
+    ["Azúcar blanca", ["1kg", "2kg"], [10, 20]],
+    ["Sal yodada", ["500g", "1kg"], [24, 30]],
+  ],
+  "Pesquera del Pacífico": [
+    ["Atún en aceite", ["170g", "354g"], [24, 48]],
+    ["Sardinas en tomate", ["155g", "425g"], [24, 48]],
+  ],
+  "Lácteos de la Sierra": [
+    ["Leche entera", ["1L", "200ml"], [12, 24]],
+    ["Yogur de frutilla", ["1L", "200g"], [6, 12]],
+    ["Queso fresco", ["500g"], [10]],
+  ],
+  "Molinos del Litoral": [
+    ["Harina de trigo", ["1kg", "2kg"], [10, 12]],
+    ["Fideo tallarín", ["400g", "1kg"], [20, 24]],
+    ["Avena en hojuelas", ["400g", "800g"], [12, 24]],
+  ],
+  "Hogar Limpio Cía. Ltda.": [
+    ["Detergente en polvo", ["500g", "1kg", "2kg"], [10, 12]],
+    ["Cloro", ["1L", "2L"], [6, 12]],
+    ["Lavavajilla en crema", ["500g", "1kg"], [12, 24]],
+  ],
+  "Bebidas Tropicales": [
+    ["Jugo de naranja", ["1L", "250ml"], [12, 24]],
+    ["Agua sin gas", ["600ml", "1,5L"], [12, 24]],
+    ["Bebida hidratante", ["500ml"], [12]],
+  ],
+  "Confites La Costa": [
+    ["Galleta de chocolate", ["120g", "6 pack"], [12, 24]],
+    ["Caramelo surtido", ["100u"], [12]],
+    ["Chocolate en barra", ["50g", "100g"], [24, 48]],
+  ],
+  "Cuidado Personal Andes": [
+    ["Champú", ["400ml", "750ml"], [12]],
+    ["Jabón de tocador", ["3x110g"], [24]],
+    ["Pasta dental", ["75ml", "150ml"], [24, 48]],
+  ],
+  "Conservas Manabí": [
+    ["Mermelada de mora", ["300g", "600g"], [12, 24]],
+    ["Salsa de tomate", ["200g", "400g"], [24]],
+    ["Mayonesa", ["200g", "400g"], [24]],
+  ],
+  "Granos del Valle": [
+    ["Lenteja", ["500g"], [24]],
+    ["Fréjol rojo", ["500g"], [24]],
+    ["Maíz tostado", ["500g"], [20]],
+  ],
+  "Snacks Pichincha": [
+    ["Papas fritas", ["45g", "150g"], [24, 48]],
+    ["Chifles", ["50g", "150g"], [24]],
+    ["Maní salado", ["100g"], [24]],
+  ],
+  "Café de Loja": [
+    ["Café molido", ["250g", "500g"], [12, 24]],
+    ["Café soluble", ["50g", "170g"], [12]],
+  ],
+  "Aceites del Oriente": [
+    ["Aceite vegetal", ["1L", "2L", "5L"], [6, 12]],
+    ["Manteca vegetal", ["500g", "1kg"], [12, 24]],
+  ],
+  "Papelera Austral": [
+    ["Papel higiénico", ["4 rollos", "12 rollos"], [6, 12]],
+    ["Servilletas", ["100u", "300u"], [24]],
+    ["Toalla de cocina", ["2 rollos"], [12]],
+  ],
+  "Especias Amazonía": [
+    ["Comino molido", ["50g"], [48]],
+    ["Achiote", ["100g"], [24]],
+    ["Orégano", ["25g"], [48]],
+  ],
+  "Mascotas Felices": [
+    ["Alimento para perro", ["2kg", "8kg"], [4, 10]],
+    ["Alimento para gato", ["1kg", "3kg"], [6, 10]],
+  ],
 };
 
 const warehouses = ["Bodega Norte", "Bodega Norte", "Bodega Norte", "Bodega Sur"];
@@ -39,7 +99,10 @@ for (const [supplier, lines] of Object.entries(catalog)) {
       const variants = int(2, 6);
       for (let v = 0; v < variants; v += 1) {
         const unitsPerBox = pick(boxes);
-        const flavor = v === 0 ? "" : ` ${pick(["Clásico", "Light", "Familiar", "Económico", "Premium", "Natural", "Integral", "Promo"])}`;
+        const flavor =
+          v === 0
+            ? ""
+            : ` ${pick(["Clásico", "Light", "Familiar", "Económico", "Premium", "Natural", "Integral", "Promo"])}`;
         sku += int(7, 977);
         products.push({
           sku: String(sku),
@@ -63,7 +126,15 @@ const decimal = (n) => String(n).replace(".", ",");
 const csv = [
   "SALDO;CODIGO_PRODUCTO;DESCRIPCION_PRODUCTO;COSTO_PRODUCTO;NOMBRE_BODEGA;PROV;UNIDAD_X_CAJA",
   ...unique.map((p, i) =>
-    [p.systemQty, p.sku, p.description, decimal(p.unitCost), p.warehouse, p.supplier, i % 97 === 13 ? "#DIV/0!" : p.unitsPerBox].join(";"),
+    [
+      p.systemQty,
+      p.sku,
+      p.description,
+      decimal(p.unitCost),
+      p.warehouse,
+      p.supplier,
+      i % 97 === 13 ? "#DIV/0!" : p.unitsPerBox,
+    ].join(";"),
   ),
 ].join("\r\n");
 writeFileSync("fixtures/inventory-sample.csv", `﻿${csv}\r\n`);
@@ -72,9 +143,24 @@ const sql = (v) => (v === null ? "null" : `'${String(v).replace(/'/g, "''")}'`);
 const people = [
   ["00000000-0000-4000-8000-000000000001", "demo@cuadre.app", "Andrea Salazar"],
   ["00000000-0000-4000-8000-000000000002", "supervisor@cuadre.app", "Marco Villacís"],
-  ...["Luis Cedeño", "María Torres", "Jorge Vera", "Paola Mora", "Diego Alvarado", "Gabriela Ruiz", "Carlos Peña", "Daniela Castro", "Fernando León", "Sofía Andrade", "Pablo Ortiz", "Valeria Chávez"].map(
-    (name, i) => [`00000000-0000-4000-8000-0000000001${String(i).padStart(2, "0")}`, `contador${i + 1}@cuadre.app`, name],
-  ),
+  ...[
+    "Luis Cedeño",
+    "María Torres",
+    "Jorge Vera",
+    "Paola Mora",
+    "Diego Alvarado",
+    "Gabriela Ruiz",
+    "Carlos Peña",
+    "Daniela Castro",
+    "Fernando León",
+    "Sofía Andrade",
+    "Pablo Ortiz",
+    "Valeria Chávez",
+  ].map((name, i) => [
+    `00000000-0000-4000-8000-0000000001${String(i).padStart(2, "0")}`,
+    `contador${i + 1}@cuadre.app`,
+    name,
+  ]),
 ];
 
 const lines = [];
@@ -91,28 +177,48 @@ for (const [id, email, name] of people) {
 }
 
 const org = "10000000-0000-4000-8000-000000000001";
-lines.push(`insert into public.organizations (id, name, created_by) values ('${org}', 'Distribuidora Demo (datos sintéticos)', '${people[0][0]}');`);
-lines.push(`insert into public.memberships (org_id, user_id, role) values ('${org}', '${people[1][0]}', 'supervisor')${people
-  .slice(2)
-  .map(([id]) => `, ('${org}', '${id}', 'counter')`)
-  .join("")};`);
+lines.push(
+  `insert into public.organizations (id, name, created_by) values ('${org}', 'Distribuidora Demo (datos sintéticos)', '${people[0][0]}');`,
+);
+lines.push(
+  `insert into public.memberships (org_id, user_id, role) values ('${org}', '${people[1][0]}', 'supervisor')${people
+    .slice(2)
+    .map(([id]) => `, ('${org}', '${id}', 'counter')`)
+    .join("")};`,
+);
 
 const rowsJson = JSON.stringify(unique.map((p) => ({ ...p })));
 lines.push("-- Two sessions: a closed one and one counting right now.");
 lines.push("set local role postgres;");
-lines.push(`select set_config('request.jwt.claims', '{"sub":"${people[0][0]}","role":"authenticated"}', true);`);
+lines.push(
+  `select set_config('request.jwt.claims', '{"sub":"${people[0][0]}","role":"authenticated"}', true);`,
+);
 for (const name of ["Toma de cierre de semestre", "Toma mensual de inventario"]) {
-  lines.push(`select public.import_session('${org}', ${sql(name)}, 'inventario-sistema.csv', ${sql(rowsJson)}::jsonb);`);
+  lines.push(
+    `select public.import_session('${org}', ${sql(name)}, 'inventario-sistema.csv', ${sql(rowsJson)}::jsonb);`,
+  );
 }
-lines.push(`update public.count_sessions set status = 'counting', created_at = now() - interval '9 hours' where org_id = '${org}';`);
+lines.push(
+  `update public.count_sessions set status = 'counting', created_at = now() - interval '9 hours' where org_id = '${org}';`,
+);
 
-const teamNames = ["Pasillo A", "Pasillo B", "Pasillo C", "Cámara fría", "Mezzanine", "Patio de carga"];
+const teamNames = [
+  "Pasillo A",
+  "Pasillo B",
+  "Pasillo C",
+  "Cámara fría",
+  "Mezzanine",
+  "Patio de carga",
+];
 lines.push(`do $$
 declare
   s record;
   t uuid;
   supplier_ids uuid[];
-  member_ids uuid[] := array[${people.slice(2).map(([id]) => `'${id}'::uuid`).join(", ")}];
+  member_ids uuid[] := array[${people
+    .slice(2)
+    .map(([id]) => `'${id}'::uuid`)
+    .join(", ")}];
   i int;
 begin
   for s in select id, code from public.count_sessions where org_id = '${org}' order by code loop
@@ -150,7 +256,9 @@ begin
 
   update public.count_sessions set status = 'closed' where org_id = '${org}' and code = 1;
 end $$;`);
-lines.push(`update public.session_products set recount_requested = true where id in (select id from public.session_product_status where status = 'faltante' and difference_value < -40 limit 6);`);
+lines.push(
+  `update public.session_products set recount_requested = true where id in (select id from public.session_product_status where status = 'faltante' and difference_value < -40 limit 6);`,
+);
 lines.push("reset role;");
 
 writeFileSync("supabase/seed.sql", `${lines.join("\n")}\n`);

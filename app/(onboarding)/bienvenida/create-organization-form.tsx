@@ -13,7 +13,12 @@ export function CreateOrganizationForm() {
   return (
     <form action={action} className="grid gap-4" noValidate>
       {state.error ? <Alert tone="error">{state.error}</Alert> : null}
-      <Field id="name" label="Nombre de la empresa" hint="Puedes cambiarlo después." error={state.fieldError}>
+      <Field
+        id="name"
+        label="Nombre de la empresa"
+        hint="Puedes cambiarlo después."
+        error={state.fieldError}
+      >
         <Input
           id="name"
           name="name"

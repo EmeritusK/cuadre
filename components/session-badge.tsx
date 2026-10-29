@@ -15,7 +15,9 @@ export function SessionBadge({ status }: { status: keyof typeof META }) {
         meta.className,
       )}
     >
-      {status === "counting" ? <span className="size-1.5 rounded-full bg-night" aria-hidden="true" /> : null}
+      {status === "counting" ? (
+        <span className="size-1.5 rounded-full bg-night" aria-hidden="true" />
+      ) : null}
       {meta.label}
     </span>
   );

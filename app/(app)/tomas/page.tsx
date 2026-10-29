@@ -49,16 +49,32 @@ export default async function SessionsPage() {
         ) : (
           <div className="overflow-x-auto rounded border border-rule bg-panel">
             <table className="w-full min-w-[56rem] text-sm">
-              <caption className="sr-only">Tomas de la empresa, de la más reciente a la más antigua</caption>
+              <caption className="sr-only">
+                Tomas de la empresa, de la más reciente a la más antigua
+              </caption>
               <thead>
                 <tr className="border-b border-rule-strong/30 text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
-                  <th scope="col" className="px-4 py-3">Toma</th>
-                  <th scope="col" className="px-4 py-3">Bodega</th>
-                  <th scope="col" className="px-4 py-3">Estado</th>
-                  <th scope="col" className="px-4 py-3 text-right">Productos</th>
-                  <th scope="col" className="px-4 py-3">Avance</th>
-                  <th scope="col" className="px-4 py-3 text-right">Diferencia</th>
-                  <th scope="col" className="px-4 py-3 text-right">Fecha</th>
+                  <th scope="col" className="px-4 py-3">
+                    Toma
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Bodega
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Estado
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-right">
+                    Productos
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Avance
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-right">
+                    Diferencia
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-right">
+                    Fecha
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -67,7 +83,10 @@ export default async function SessionsPage() {
                   const progress = ratio(summary?.counted_products ?? 0, summary?.products ?? 0);
                   const difference = Number(summary?.difference_value ?? 0);
                   return (
-                    <tr key={session.id} className="group relative border-b border-rule last:border-0 hover:bg-panel-sunken/60">
+                    <tr
+                      key={session.id}
+                      className="group relative border-b border-rule last:border-0 hover:bg-panel-sunken/60"
+                    >
                       <td className="px-4 py-3">
                         <Link
                           href={`/tomas/${session.code}`}
@@ -81,11 +100,19 @@ export default async function SessionsPage() {
                       <td className="px-4 py-3">
                         <SessionBadge status={session.status} />
                       </td>
-                      <td className="px-4 py-3 text-right">{formatInteger(summary?.products ?? 0)}</td>
+                      <td className="px-4 py-3 text-right">
+                        {formatInteger(summary?.products ?? 0)}
+                      </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="h-1.5 w-28 overflow-hidden rounded-full bg-rule" aria-hidden="true">
-                            <div className="h-full bg-ink" style={{ width: `${progress * 100}%` }} />
+                          <div
+                            className="h-1.5 w-28 overflow-hidden rounded-full bg-rule"
+                            aria-hidden="true"
+                          >
+                            <div
+                              className="h-full bg-ink"
+                              style={{ width: `${progress * 100}%` }}
+                            />
                           </div>
                           <span className="w-12 text-right">{formatPercent(progress)}</span>
                         </div>
@@ -118,9 +145,22 @@ function EmptySessions({ canImport }: { canImport: boolean }) {
   return (
     <div className="mx-auto max-w-lg py-16 text-center">
       <svg viewBox="0 0 160 48" aria-hidden="true" className="mx-auto mb-6 h-12 w-40">
-        <path d="M8 24h144" stroke="currentColor" strokeWidth="6" strokeLinecap="round" className="text-rule" />
+        <path
+          d="M8 24h144"
+          stroke="currentColor"
+          strokeWidth="6"
+          strokeLinecap="round"
+          className="text-rule"
+        />
         {[24, 80, 136].map((x) => (
-          <circle key={x} cx={x} cy="24" r="8" className="fill-ground stroke-rule-strong/50" strokeWidth="3.5" />
+          <circle
+            key={x}
+            cx={x}
+            cy="24"
+            r="8"
+            className="fill-ground stroke-rule-strong/50"
+            strokeWidth="3.5"
+          />
         ))}
       </svg>
       <h2 className="text-lg font-bold">Todavía no hay tomas</h2>

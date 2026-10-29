@@ -80,7 +80,10 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
   redirect("/");
 }
 
-export async function requestPasswordReset(_prev: AuthState, formData: FormData): Promise<AuthState> {
+export async function requestPasswordReset(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
   const parsed = z.object({ email }).safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { fieldErrors: firstErrors(parsed.error) };
 
@@ -91,7 +94,9 @@ export async function requestPasswordReset(_prev: AuthState, formData: FormData)
   });
 
   // Same message whether or not the account exists, so emails cannot be enumerated.
-  return { notice: `Si ${parsed.data.email} tiene una cuenta, recibirás un enlace en unos minutos.` };
+  return {
+    notice: `Si ${parsed.data.email} tiene una cuenta, recibirás un enlace en unos minutos.`,
+  };
 }
 
 export async function signOut() {
