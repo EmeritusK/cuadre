@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:db": "npx supabase test db",
     "db:start": "npx supabase start",
     "db:reset": "npx supabase db reset",
     "db:types": "npx supabase gen types typescript --local > lib/supabase/database.types.ts"
