@@ -32,34 +32,49 @@ export function useLiveCounts(sessionId: string, enabled: boolean) {
       }, REFRESH_INTERVAL_MS);
     };
 
-    const channel = supabase
-      .channel(`session-${sessionId}`)
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "counts", filter: `session_id=eq.${sessionId}` },
-        async (payload) => {
-          setLastEventAt(Date.now());
-          scheduleRefresh();
-          const productId = (payload.new as { product_id?: string })?.product_id;
-          if (!productId) return;
-          const { data } = await supabase
-            .from("session_products")
-            .select("supplier_id")
-            .eq("id", productId)
-            .maybeSingle();
-          if (data) setPulses((current) => ({ ...current, [data.supplier_id]: Date.now() }));
-        },
-      )
-      .subscribe((state) => {
-        if (state === "SUBSCRIBED") setStatus("live");
-        else if (state === "CHANNEL_ERROR" || state === "TIMED_OUT" || state === "CLOSED") {
-          setStatus("offline");
-        }
-      });
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    let cancelled = false;
+
+    const subscribe = async () => {
+      // Realtime evaluates RLS with the token it joined with; without the user's
+      // token it joins as anon and every count is filtered out.
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (cancelled) return;
+      if (session) supabase.realtime.setAuth(session.access_token);
+
+      channel = supabase
+        .channel(`session-${sessionId}`)
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "counts", filter: `session_id=eq.${sessionId}` },
+          async (payload) => {
+            setLastEventAt(Date.now());
+            scheduleRefresh();
+            const productId = (payload.new as { product_id?: string })?.product_id;
+            if (!productId) return;
+            const { data } = await supabase
+              .from("session_products")
+              .select("supplier_id")
+              .eq("id", productId)
+              .maybeSingle();
+            if (data) setPulses((current) => ({ ...current, [data.supplier_id]: Date.now() }));
+          },
+        )
+        .subscribe((state) => {
+          if (state === "SUBSCRIBED") setStatus("live");
+          else if (state === "CHANNEL_ERROR" || state === "TIMED_OUT" || state === "CLOSED") {
+            setStatus("offline");
+          }
+        });
+    };
+    void subscribe();
 
     return () => {
+      cancelled = true;
       if (refreshTimer.current) clearTimeout(refreshTimer.current);
-      supabase.removeChannel(channel);
+      if (channel) void supabase.removeChannel(channel);
     };
   }, [enabled, router, sessionId]);
 
