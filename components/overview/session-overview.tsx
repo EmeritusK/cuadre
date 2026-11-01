@@ -114,7 +114,7 @@ export function SessionOverview({ sessionId, sessionCode, counting, overview }: 
                 Arma los equipos para ver el mapa.{" "}
                 <Link
                   href={`/tomas/${sessionCode}/equipos`}
-                  className="font-semibold text-cobalt hover:underline"
+                  className="font-semibold text-link hover:underline"
                 >
                   Ir a Equipos
                 </Link>
@@ -183,7 +183,7 @@ export function SessionOverview({ sessionId, sessionCode, counting, overview }: 
             <div className="border-t border-rule px-5 py-2.5">
               <Link
                 href={`/tomas/${sessionCode}/productos?estado=diferencias`}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-cobalt hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-link hover:underline"
               >
                 Ver todas las diferencias
                 <ArrowRight className="size-4" aria-hidden="true" />
@@ -387,12 +387,12 @@ function LinesTable({ sessionCode, lines }: { sessionCode: number; lines: Overvi
         </h2>
         <Link
           href={`/tomas/${sessionCode}/equipos`}
-          className="text-sm font-semibold text-cobalt hover:underline"
+          className="text-sm font-semibold text-link hover:underline"
         >
           Organizar equipos
         </Link>
       </header>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-labelledby="lineas">
         <table className="w-full min-w-[38rem] text-sm">
           <thead>
             <tr className="border-b border-rule text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">

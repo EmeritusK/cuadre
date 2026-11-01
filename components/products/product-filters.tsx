@@ -164,7 +164,7 @@ export function ProductFilters({ filters, suppliers, teams, sorts }: Props) {
               lastPushed.current = "";
               update({ q: null, proveedor: null, equipo: null, estado: null });
             }}
-            className="inline-flex h-8 items-center gap-1 px-2 text-sm font-semibold text-cobalt hover:underline"
+            className="inline-flex h-8 items-center gap-1 px-2 text-sm font-semibold text-link hover:underline"
           >
             <X className="size-3.5" aria-hidden="true" />
             Limpiar filtros

@@ -11,7 +11,7 @@ export default function ResetPage() {
       <p className="mb-8 mt-2 text-ink-muted">Te enviaremos un enlace para crear una nueva.</p>
       <ResetForm />
       <p className="mt-8 text-sm">
-        <Link href="/ingresar" className="font-semibold text-cobalt hover:underline">
+        <Link href="/ingresar" className="font-semibold text-link hover:underline">
           Volver a ingresar
         </Link>
       </p>

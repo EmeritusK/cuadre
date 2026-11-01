@@ -14,7 +14,7 @@ export default function SignUpPage() {
       <SignUpForm />
       <p className="mt-8 text-sm text-ink-muted">
         ¿Ya tienes cuenta?{" "}
-        <Link href="/ingresar" className="font-semibold text-cobalt hover:underline">
+        <Link href="/ingresar" className="font-semibold text-link hover:underline">
           Ingresa
         </Link>
       </p>

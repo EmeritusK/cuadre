@@ -39,7 +39,7 @@ export function SignInForm({ next }: { next?: string }) {
         />
       </Field>
       <div className="-mt-2 text-right">
-        <Link href="/recuperar" className="text-sm font-semibold text-cobalt hover:underline">
+        <Link href="/recuperar" className="text-sm font-semibold text-link hover:underline">
           ¿Olvidaste tu contraseña?
         </Link>
       </div>

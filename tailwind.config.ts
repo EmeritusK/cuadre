@@ -21,6 +21,7 @@ const config: Config = {
         rule: { DEFAULT: token("rule"), strong: token("rule-strong") },
         scarlet: token("scarlet"),
         cobalt: token("cobalt"),
+        link: token("link"),
         amber: token("amber"),
         green: token("green"),
         short: token("short"),

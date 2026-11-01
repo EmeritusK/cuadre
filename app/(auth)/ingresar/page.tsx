@@ -22,7 +22,7 @@ export default function SignInPage({
       <SignInForm next={searchParams.next} />
       <p className="mt-8 text-sm text-ink-muted">
         ¿Primera vez en Cuadre?{" "}
-        <Link href="/registro" className="font-semibold text-cobalt hover:underline">
+        <Link href="/registro" className="font-semibold text-link hover:underline">
           Crea una cuenta
         </Link>
       </p>
