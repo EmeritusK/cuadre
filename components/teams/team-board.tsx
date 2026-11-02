@@ -274,7 +274,7 @@ function TeamLine({
                     <button
                       type="button"
                       onClick={() => run(() => unassignSupplier(team.id, s.id))}
-                      className="inline-flex size-7 shrink-0 items-center justify-center rounded text-ink-muted hover:bg-panel-sunken hover:text-ink"
+                      className="inline-flex size-9 shrink-0 items-center justify-center rounded text-ink-muted hover:bg-panel-sunken hover:text-ink sm:size-7"
                       aria-label={`Quitar ${s.name} de ${team.name}`}
                     >
                       <X className="size-4" aria-hidden="true" />
@@ -332,7 +332,7 @@ function TeamLine({
               {team.members.map((member) => (
                 <li
                   key={member.id}
-                  className="inline-flex h-8 items-center gap-2 rounded-full border border-rule bg-ground pl-1 pr-1.5 text-sm"
+                  className="inline-flex h-10 items-center gap-2 rounded-full border border-rule bg-ground pl-1 pr-1 text-sm sm:h-8 sm:pr-1.5"
                 >
                   <span
                     aria-hidden="true"
@@ -351,7 +351,7 @@ function TeamLine({
                     <button
                       type="button"
                       onClick={() => run(() => removeMember(team.id, member.id))}
-                      className="inline-flex size-6 items-center justify-center rounded-full text-ink-muted hover:bg-panel-sunken hover:text-ink"
+                      className="inline-flex size-8 items-center justify-center rounded-full text-ink-muted hover:bg-panel-sunken hover:text-ink sm:size-6"
                       aria-label={`Quitar a ${member.name} de ${team.name}`}
                     >
                       <X className="size-3.5" aria-hidden="true" />

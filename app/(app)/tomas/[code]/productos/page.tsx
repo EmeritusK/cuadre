@@ -89,7 +89,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
           <Alert tone="error">No pudimos cargar los productos. Recarga la página.</Alert>
         ) : null}
 
-        <div className="overflow-x-auto rounded border border-rule bg-panel">
+        <div className="relative overflow-x-auto rounded border border-rule bg-panel">
           <table className="w-full min-w-[60rem] text-sm">
             <caption className="sr-only">Productos de la toma</caption>
             <thead className="sticky top-0 bg-panel">

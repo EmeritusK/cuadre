@@ -57,7 +57,7 @@ export default async function OrganizationSettingsPage() {
         )}
       </section>
 
-      <section aria-labelledby="miembros" className="grid gap-4">
+      <section aria-labelledby="miembros" className="grid grid-cols-1 gap-4 [&>*]:min-w-0">
         <div>
           <h2 id="miembros" className="text-lg font-bold">
             Miembros

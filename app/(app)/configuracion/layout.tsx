@@ -8,7 +8,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         title="Configuración"
         description="Tu empresa, las personas que cuentan y tu cuenta."
       />
-      <div className="mx-auto grid max-w-4xl gap-8 p-4 sm:p-6">
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 p-4 sm:p-6 [&>*]:min-w-0">
         <SettingsTabs />
         {children}
       </div>

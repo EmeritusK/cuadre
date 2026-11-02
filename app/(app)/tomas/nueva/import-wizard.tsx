@@ -203,7 +203,7 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
               )}
 
               {result.rows.length > 0 ? (
-                <div className="overflow-x-auto rounded border border-rule bg-panel">
+                <div className="relative overflow-x-auto rounded border border-rule bg-panel">
                   <table className="w-full min-w-[48rem] text-sm">
                     <caption className="px-4 py-3 text-left text-sm font-semibold">
                       Primeras {Math.min(PREVIEW_ROWS, result.rows.length)} de{" "}

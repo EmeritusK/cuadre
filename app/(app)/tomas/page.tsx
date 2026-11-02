@@ -47,7 +47,7 @@ export default async function SessionsPage() {
         {!sessions?.length ? (
           <EmptySessions canImport={role === "admin"} />
         ) : (
-          <div className="overflow-x-auto rounded border border-rule bg-panel">
+          <div className="relative overflow-x-auto rounded border border-rule bg-panel">
             <table className="w-full min-w-[56rem] text-sm">
               <caption className="sr-only">
                 Tomas de la empresa, de la más reciente a la más antigua

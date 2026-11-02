@@ -31,7 +31,7 @@ export function MembersTable({ currentUserId, isAdmin, members, invitations }: P
     });
 
   return (
-    <div className="overflow-x-auto rounded border border-rule bg-panel">
+    <div className="relative overflow-x-auto rounded border border-rule bg-panel">
       <table className="w-full min-w-[36rem] text-sm">
         <caption className="sr-only">Miembros e invitaciones pendientes</caption>
         <thead>
