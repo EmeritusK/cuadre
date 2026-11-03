@@ -15,6 +15,7 @@ import {
   formatMoney,
   formatQuantity,
   formatSignedMoney,
+  formatSignedQuantity,
 } from "@/lib/format";
 import { setRecountRequested } from "@/lib/products/actions";
 import type { ProductDetail } from "@/lib/products/query";
@@ -124,10 +125,7 @@ export function ProductSheet({ detail, previousId, nextId, canManage, readOnly }
               {[
                 ["Sistema", formatQuantity(Number(product.system_qty))],
                 ["Contado", formatQuantity(Number(product.counted_qty))],
-                [
-                  "Diferencia",
-                  `${Number(product.difference) > 0 ? "+" : ""}${formatQuantity(Number(product.difference))}`,
-                ],
+                ["Diferencia", formatSignedQuantity(Number(product.difference))],
               ].map(([label, value], index) => (
                 <div key={label} className={cn("px-5 py-4", index > 0 && "border-l border-rule")}>
                   <dt className="text-xs font-semibold text-ink-muted">{label}</dt>

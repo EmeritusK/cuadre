@@ -17,6 +17,11 @@ export function formatSignedMoney(value: number) {
 }
 export const formatInteger = (value: number) => integer.format(value);
 export const formatQuantity = (value: number) => quantity.format(value);
+/** −96 / +24 / 0: unit differences with a real minus sign, like money. */
+export function formatSignedQuantity(value: number) {
+  if (value === 0) return "0";
+  return `${value < 0 ? "\u2212" : "+"}${quantity.format(Math.abs(value))}`;
+}
 export const formatPercent = (ratio: number) => percent.format(ratio);
 export const formatDateTime = (value: string | Date) => dateTime.format(new Date(value));
 export const formatDate = (value: string | Date) => date.format(new Date(value));

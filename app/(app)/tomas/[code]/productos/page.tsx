@@ -8,7 +8,12 @@ import { ProductSheet } from "@/components/products/product-sheet";
 import { PageHeader } from "@/components/shell/page-header";
 import { StatusMark } from "@/components/status-mark";
 import { Alert } from "@/components/ui/alert";
-import { formatInteger, formatQuantity, formatSignedMoney } from "@/lib/format";
+import {
+  formatInteger,
+  formatQuantity,
+  formatSignedMoney,
+  formatSignedQuantity,
+} from "@/lib/format";
 import { sessionLabel } from "@/lib/lines";
 import { canManage } from "@/lib/org/active";
 import {
@@ -174,9 +179,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
                           counted && row.difference > 0 && "text-over",
                         )}
                       >
-                        {counted
-                          ? `${row.difference > 0 ? "+" : ""}${formatQuantity(row.difference)}`
-                          : "—"}
+                        {counted ? formatSignedQuantity(row.difference) : "—"}
                       </td>
                       <td
                         className={cn(
