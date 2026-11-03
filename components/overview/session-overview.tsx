@@ -349,7 +349,7 @@ function MapLegend() {
 export function LineChip({ code }: { code: number | null }) {
   if (code === null) {
     return (
-      <span className="inline-flex h-6 w-14 shrink-0 items-center justify-center rounded-sm border border-dashed border-rule-strong/50 text-xs font-bold text-ink-muted">
+      <span className="inline-flex h-6 w-14 shrink-0 items-center justify-center rounded-sm border border-dashed border-rule-strong/50 font-display text-[0.8125rem] font-semibold tracking-[0.06em] text-ink-muted">
         —
       </span>
     );
@@ -357,7 +357,7 @@ export function LineChip({ code }: { code: number | null }) {
   const ink = lineInk(code);
   return (
     <span
-      className="inline-flex h-6 w-14 shrink-0 items-center justify-center rounded-sm text-xs font-bold"
+      className="inline-flex h-6 w-14 shrink-0 items-center justify-center rounded-sm font-display text-[0.8125rem] font-semibold tracking-[0.06em]"
       style={{ backgroundColor: ink.ink, color: ink.onInk }}
     >
       {teamLabel(code)}
@@ -398,20 +398,20 @@ function LinesTable({ sessionCode, lines }: { sessionCode: number; lines: Overvi
         </Link>
       </header>
       <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-labelledby="lineas">
-        <table className="w-full min-w-[38rem] text-sm">
+        <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-rule text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+            <tr className="border-b border-rule text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
               <th scope="col" className="px-5 py-2.5">
                 Equipo
               </th>
-              <th scope="col" className="w-[36%] px-3 py-2.5">
+              <th scope="col" className="hidden w-[34%] px-3 py-2.5 md:table-cell">
                 Avance
               </th>
-              <th scope="col" className="px-3 py-2.5 text-right">
-                Faltantes
+              <th scope="col" className="hidden px-3 py-2.5 text-right lg:table-cell">
+                Faltan.
               </th>
-              <th scope="col" className="px-3 py-2.5 text-right">
-                Sobrantes
+              <th scope="col" className="hidden px-3 py-2.5 text-right lg:table-cell">
+                Sobran.
               </th>
               <th scope="col" className="px-5 py-2.5 text-right">
                 Diferencia
@@ -427,30 +427,30 @@ function LinesTable({ sessionCode, lines }: { sessionCode: number; lines: Overvi
                     <span className="flex items-center gap-3">
                       <LineChip code={line.code} />
                       <span className="truncate">{line.name}</span>
-                      {line.code ? (
-                        <span className="whitespace-nowrap text-xs font-normal text-ink-muted">
-                          {line.members} {line.members === 1 ? "persona" : "personas"}
-                        </span>
-                      ) : null}
+                      <span className="whitespace-nowrap text-xs font-normal text-ink-muted md:hidden">
+                        {formatInteger(counted)}/{formatInteger(products)}
+                      </span>
                     </span>
                   </th>
-                  <td className="px-3 py-2.5">
+                  <td className="hidden px-3 py-2.5 md:table-cell">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="relative h-2 min-w-[8rem] flex-1 rounded-full bg-rule/70"
-                        aria-hidden="true"
-                      >
+                      {/* One scale for every team: the track itself is as long as the team's load. */}
+                      <div className="h-2 min-w-0 flex-1" aria-hidden="true">
                         <div
-                          className="absolute inset-y-0 left-0 rounded-full"
+                          className="h-full overflow-hidden rounded-full"
                           style={{
                             width: `${(products / scale) * 100}%`,
                             backgroundColor: `${ink}38`,
                           }}
-                        />
-                        <div
-                          className="absolute inset-y-0 left-0 rounded-full"
-                          style={{ width: `${(counted / scale) * 100}%`, backgroundColor: ink }}
-                        />
+                        >
+                          <div
+                            className="h-full rounded-full"
+                            style={{
+                              width: `${ratio(counted, products) * 100}%`,
+                              backgroundColor: ink,
+                            }}
+                          />
+                        </div>
                       </div>
                       <span className="w-16 shrink-0 text-right text-ink-muted">
                         <span className="font-semibold text-ink">{formatInteger(counted)}</span>/
@@ -458,8 +458,12 @@ function LinesTable({ sessionCode, lines }: { sessionCode: number; lines: Overvi
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-2.5 text-right">{short ? formatInteger(short) : "—"}</td>
-                  <td className="px-3 py-2.5 text-right">{over ? formatInteger(over) : "—"}</td>
+                  <td className="hidden px-3 py-2.5 text-right lg:table-cell">
+                    {short ? formatInteger(short) : "—"}
+                  </td>
+                  <td className="hidden px-3 py-2.5 text-right lg:table-cell">
+                    {over ? formatInteger(over) : "—"}
+                  </td>
                   <td
                     className={cn(
                       "whitespace-nowrap px-5 py-2.5 text-right font-semibold",

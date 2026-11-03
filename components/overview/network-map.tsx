@@ -6,7 +6,7 @@ import { lineInk, teamLabel } from "@/lib/lines";
 import type { LineData, StationData } from "@/lib/sessions/overview";
 import { cn } from "@/lib/utils";
 
-const ROW = 92;
+const ROW = 108;
 const TOP = 36;
 const HUB_X = 30;
 const STATION_GAP = 160;
@@ -121,7 +121,10 @@ function DiagramMap({ sessionCode, lines, pulses }: NetworkMapProps) {
                 x="11"
                 y="17.5"
                 fill={line.code ? ink.onInk : undefined}
-                className={cn("text-[13px] font-bold", !line.code && "fill-ink-muted")}
+                className={cn(
+                  "font-display text-[15px] font-semibold tracking-[0.06em]",
+                  !line.code && "fill-ink-muted",
+                )}
               >
                 {label}
               </text>
@@ -137,7 +140,7 @@ function DiagramMap({ sessionCode, lines, pulses }: NetworkMapProps) {
                 station={station}
                 x={runStart + stationIndex * STATION_GAP}
                 y={y}
-                maxChars={Math.floor(STATION_GAP / CHAR_WIDTH)}
+                maxChars={Math.floor((STATION_GAP - 16) / 7.2)}
                 pulseKey={pulses[station.supplierId]}
                 href={`/tomas/${sessionCode}/productos?proveedor=${station.supplierId}`}
               />
@@ -149,6 +152,11 @@ function DiagramMap({ sessionCode, lines, pulses }: NetworkMapProps) {
   );
 }
 
+/**
+ * Station states: hollow ring while pending, a thin outer arc as products are
+ * counted, solid when the supplier is done. A notch cut into the ring carries
+ * the shortage (down) or overage (up) marker.
+ */
 function StationGlyph({
   station,
   x,
@@ -162,10 +170,29 @@ function StationGlyph({
 }) {
   const progress = station.products > 0 ? station.counted / station.products : 0;
   const done = progress >= 1;
-  const inner = r - 3.5;
-  const circumference = 2 * Math.PI * inner;
+  const arc = r + 5;
+  const circumference = 2 * Math.PI * arc;
+  const notchX = x + r * 0.78;
+  const notchY = y - r * 0.78;
+  const flagged = station.short > 0 || station.over > 0;
   return (
     <>
+      {!done && progress > 0 ? (
+        <>
+          <circle cx={x} cy={y} r={arc} fill="none" className="stroke-rule" strokeWidth="3" />
+          <circle
+            cx={x}
+            cy={y}
+            r={arc}
+            fill="none"
+            className="stroke-ink"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={`${circumference * progress} ${circumference}`}
+            transform={`rotate(-90 ${x} ${y})`}
+          />
+        </>
+      ) : null}
       <circle
         cx={x}
         cy={y}
@@ -173,26 +200,35 @@ function StationGlyph({
         className={done ? "fill-ink stroke-ink" : "fill-panel stroke-ink"}
         strokeWidth="4"
       />
-      {!done && progress > 0 ? (
-        <circle
-          cx={x}
-          cy={y}
-          r={inner}
-          fill="none"
-          className="stroke-ink"
-          strokeWidth="7"
-          strokeDasharray={`${circumference * progress} ${circumference}`}
-          transform={`rotate(-90 ${x} ${y})`}
-        />
-      ) : null}
-      {station.short > 0 ? (
-        <path d={`M${x + r - 2} ${y - r - 7} h10 l-5 8 z`} className="fill-short" />
-      ) : null}
-      {station.over > 0 ? (
-        <path d={`M${x + r - 2} ${y + r + 7} h10 l-5 -8 z`} className="fill-over" />
+      {flagged ? (
+        <>
+          <circle cx={notchX} cy={notchY} r="7.5" className="fill-panel" />
+          {station.short >= station.over ? (
+            <path d={`M${notchX - 5} ${notchY - 3.5} h10 l-5 8 z`} className="fill-short" />
+          ) : (
+            <path d={`M${notchX - 5} ${notchY + 3.5} h10 l-5 -8 z`} className="fill-over" />
+          )}
+        </>
       ) : null}
     </>
   );
+}
+
+/** Splits a station name into at most two lines that fit under the station. */
+function wrapName(name: string, maxChars: number): string[] {
+  const words = name.split(/\s+/);
+  const lines: string[] = [""];
+  for (const word of words) {
+    const current = lines[lines.length - 1]!;
+    if (!current || `${current} ${word}`.length <= maxChars) {
+      lines[lines.length - 1] = current ? `${current} ${word}` : word;
+    } else if (lines.length < 2) {
+      lines.push(word);
+    } else {
+      lines[1] = `${lines[1]} ${word}`;
+    }
+  }
+  return lines.map((line) => (line.length > maxChars ? `${line.slice(0, maxChars - 1)}…` : line));
 }
 
 function DiagramStation({
@@ -211,8 +247,7 @@ function DiagramStation({
   href: string;
 }) {
   const r = 11;
-  const name =
-    station.name.length > maxChars ? `${station.name.slice(0, maxChars - 1)}…` : station.name;
+  const nameLines = wrapName(station.name, maxChars);
   const description = describe(station);
 
   return (
@@ -239,13 +274,22 @@ function DiagramStation({
       <StationGlyph station={station} x={x} y={y} r={r} />
       <text
         x={x}
-        y={y + 36}
+        y={y + 38}
         textAnchor="middle"
-        className="fill-ink text-[13px] font-semibold group-hover:underline"
+        className="fill-ink font-display text-[14px] font-semibold uppercase tracking-[0.04em] group-hover:underline"
       >
-        {name}
+        {nameLines.map((line, index) => (
+          <tspan key={index} x={x} dy={index === 0 ? 0 : 16}>
+            {line}
+          </tspan>
+        ))}
       </text>
-      <text x={x} y={y + 52} textAnchor="middle" className="fill-ink-muted text-[12px]">
+      <text
+        x={x}
+        y={y + 38 + nameLines.length * 16}
+        textAnchor="middle"
+        className="fill-ink-muted text-[12px]"
+      >
         {formatInteger(station.counted)}/{formatInteger(station.products)}
       </text>
     </Link>
@@ -262,7 +306,7 @@ function StripMaps({ sessionCode, lines, pulses }: NetworkMapProps) {
           <section key={line.teamId ?? "none"} aria-label={lineName(line)}>
             <span
               className={cn(
-                "inline-flex h-7 items-center rounded-sm px-2.5 text-sm font-bold",
+                "inline-flex h-7 items-center rounded-sm px-2.5 font-display text-[0.9375rem] font-semibold tracking-[0.06em]",
                 !line.code && "border border-dashed border-rule-strong/50 text-ink-muted",
               )}
               style={line.code ? { backgroundColor: ink.ink, color: ink.onInk } : undefined}
