@@ -37,15 +37,16 @@
   }
 
   .dark {
-    --ground: 230 61% 9%;
-    --panel: 230 50% 13%;
-    --panel-sunken: 230 55% 7%;
+    /* Midnight enamel work ground (#0B1230), panels one step lifted. */
+    --ground: 230 61% 12%;
+    --panel: 230 46% 16%;
+    --panel-sunken: 230 58% 10%;
     --ink: 40 33% 94%;
     --ink-muted: 226 30% 74%;
-    --rule: 229 35% 24%;
+    --rule: 229 35% 26%;
     --rule-strong: 226 30% 60%;
-    --night: 230 66% 6%;
-    --night-raised: 229 50% 16%;
+    --night: 230 66% 7%;
+    --night-raised: 229 50% 17%;
 
     --short: 0 90% 66%;
     --over: 222 100% 72%;

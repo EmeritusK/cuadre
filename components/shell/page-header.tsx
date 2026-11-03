@@ -20,7 +20,9 @@ export function PageHeader({
       )}
     >
       <div className="min-w-0">
-        <h1 className="truncate text-xl font-extrabold tracking-tight">{title}</h1>
+        <h1 className="truncate font-display text-[1.625rem] font-bold leading-tight tracking-[0.02em]">
+          {title}
+        </h1>
         {description ? <p className="mt-0.5 text-sm text-ink-muted">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}

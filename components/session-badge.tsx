@@ -11,7 +11,7 @@ export function SessionBadge({ status }: { status: keyof typeof META }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-sm border px-2 py-0.5 text-xs font-bold uppercase tracking-[0.05em]",
+        "inline-flex items-center gap-1.5 rounded-sm border px-2 py-0.5 font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em]",
         meta.className,
       )}
     >

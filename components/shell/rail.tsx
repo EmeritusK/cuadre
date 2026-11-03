@@ -71,9 +71,7 @@ function RailContent({ orgName, current, user, organizations, activeOrgId, canIm
     <div className="flex h-full flex-col gap-6 px-4 py-5">
       <div className="px-1">
         <Brand />
-        <p className="mt-2 truncate text-sm text-night-muted" title={orgName}>
-          {orgName}
-        </p>
+        <p className="mt-2 text-sm leading-snug text-night-muted">{orgName}</p>
       </div>
 
       {current ? (
@@ -81,15 +79,14 @@ function RailContent({ orgName, current, user, organizations, activeOrgId, canIm
           href={`/tomas/${current.code}`}
           className="group block rounded border border-night-fg/25 px-3 py-3 transition-colors hover:border-night-fg/60"
         >
-          <span className="flex items-center justify-between gap-2">
-            <span className="text-2xs font-bold uppercase text-night-muted">Toma en curso</span>
-            <SessionStatus status={current.status} />
-          </span>
-          <span className="mt-1.5 block text-xl font-extrabold tracking-[0.02em]">
+          <span className="block whitespace-nowrap font-display text-[1.75rem] font-bold leading-none tracking-[0.03em]">
             {sessionLabel(current.code)}
           </span>
-          <span className="mt-0.5 block truncate text-sm text-night-muted">
-            {current.warehouse ?? current.name}
+          <span className="mt-2 flex items-center justify-between gap-2">
+            <span className="truncate text-sm text-night-muted">
+              {current.warehouse ?? current.name}
+            </span>
+            <SessionStatus status={current.status} />
           </span>
         </Link>
       ) : null}
@@ -97,7 +94,7 @@ function RailContent({ orgName, current, user, organizations, activeOrgId, canIm
       <nav aria-label="Principal" className="grid gap-5">
         {sessionLinks.length > 0 ? (
           <div className="grid gap-0.5">
-            <p className="flex items-center gap-1.5 px-3 pb-1 text-2xs font-bold uppercase text-night-muted">
+            <p className="flex items-center gap-1.5 px-3 pb-1 font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-night-muted">
               {viewingOther ? (
                 <>
                   <ArrowLeftRight className="size-3" aria-hidden="true" />
@@ -158,7 +155,7 @@ function SessionStatus({ status }: { status: RailSession["status"] }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 text-2xs font-bold uppercase",
+        "inline-flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 font-display text-xs font-semibold uppercase tracking-[0.08em]",
         status === "counting" && "bg-amber text-night",
         status === "draft" && "bg-night-raised text-night-fg",
         status === "closed" && "bg-night-fg/15 text-night-fg",
