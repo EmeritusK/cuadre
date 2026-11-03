@@ -8,6 +8,7 @@ import { sessionLabel } from "@/lib/lines";
 import { canManage } from "@/lib/org/active";
 import { getSessionByCode } from "@/lib/sessions/queries";
 import { createClient } from "@/lib/supabase/server";
+import { Sep } from "@/components/ui/sep";
 
 type Props = { params: { code: string }; searchParams: { importada?: string } };
 
@@ -62,7 +63,13 @@ export default async function TeamsPage({ params, searchParams }: Props) {
   return (
     <>
       <PageHeader
-        title={`Equipos · ${sessionLabel(session.code)}`}
+        title={
+          <>
+            Equipos
+            <Sep />
+            {sessionLabel(session.code)}
+          </>
+        }
         description="Cada equipo es una línea del mapa y cuenta los proveedores que le asignes."
         actions={
           context.role === "admin" && session.status === "draft" ? (

@@ -8,6 +8,7 @@ import { formatDateTime } from "@/lib/format";
 import { sessionLabel } from "@/lib/lines";
 import { getSessionOverview } from "@/lib/sessions/overview";
 import { getSessionByCode } from "@/lib/sessions/queries";
+import { Sep } from "@/components/ui/sep";
 
 export async function generateMetadata({
   params,
@@ -38,7 +39,15 @@ export default async function SessionOverviewPage({ params }: { params: { code: 
             <SessionBadge status={session.status} />
           </span>
         }
-        description={`${session.name} · ${session.warehouses?.name ?? "Sin bodega"} · ${when}`}
+        description={
+          <>
+            {session.name}
+            <Sep />
+            {session.warehouses?.name ?? "Sin bodega"}
+            <Sep />
+            {when}
+          </>
+        }
         actions={
           <>
             <ExportButton code={session.code} />

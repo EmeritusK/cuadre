@@ -20,6 +20,7 @@ import {
 import { setRecountRequested } from "@/lib/products/actions";
 import type { ProductDetail } from "@/lib/products/query";
 import { cn } from "@/lib/utils";
+import { Sep } from "@/components/ui/sep";
 
 const CONDITION = { bueno: "Bueno", averiado: "Averiado", vencido: "Vencido" } as const;
 
@@ -89,8 +90,11 @@ export function ProductSheet({ detail, previousId, nextId, canManage, readOnly }
                 {product.description}
               </Dialog.Title>
               <Dialog.Description className="mt-1 text-sm text-ink-muted">
-                {product.supplier_name} · {formatInteger(Number(product.units_per_box))} u por caja
-                · {formatMoney(Number(product.unit_cost))} c/u
+                {product.supplier_name}
+                <Sep />
+                {formatInteger(Number(product.units_per_box))} u por caja
+                <Sep />
+                {formatMoney(Number(product.unit_cost))} c/u
               </Dialog.Description>
             </div>
             <div className="flex shrink-0 items-center gap-1">
@@ -195,8 +199,15 @@ export function ProductSheet({ detail, previousId, nextId, canManage, readOnly }
                         {count.units_per_box} u + {count.units} sueltas
                       </p>
                       <p className="mt-1 text-sm text-ink-muted">
-                        {count.counterName ?? "Contador"} · Estado {CONDITION[count.condition]}
-                        {count.expires_on ? ` · Vence ${formatDate(count.expires_on)}` : ""}
+                        {count.counterName ?? "Contador"}
+                        <Sep />
+                        Estado {CONDITION[count.condition]}
+                        {count.expires_on ? (
+                          <>
+                            <Sep />
+                            Vence {formatDate(count.expires_on)}
+                          </>
+                        ) : null}
                       </p>
                     </li>
                   ))}

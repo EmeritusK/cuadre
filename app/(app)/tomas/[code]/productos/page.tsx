@@ -27,6 +27,7 @@ import {
 import { getSessionByCode } from "@/lib/sessions/queries";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
+import { Sep } from "@/components/ui/sep";
 
 type Props = {
   params: { code: string };
@@ -75,7 +76,13 @@ export default async function ProductsPage({ params, searchParams }: Props) {
   return (
     <>
       <PageHeader
-        title={`Productos · ${sessionLabel(session.code)}`}
+        title={
+          <>
+            Productos
+            <Sep />
+            {sessionLabel(session.code)}
+          </>
+        }
         description={`${formatInteger(total)} ${total === 1 ? "producto" : "productos"} con estos filtros`}
         actions={<ExportButton code={session.code} />}
       />

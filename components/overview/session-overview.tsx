@@ -18,6 +18,7 @@ import type { SessionOverview as Overview } from "@/lib/sessions/overview";
 import { cn } from "@/lib/utils";
 import { NetworkMap } from "./network-map";
 import { useLiveCounts, type LiveStatus } from "./use-live-counts";
+import { Sep } from "@/components/ui/sep";
 
 type Props = {
   sessionId: string;
@@ -54,7 +55,8 @@ export function SessionOverview({ sessionId, sessionCode, counting, overview }: 
               <span className="font-semibold text-ink">{formatPercent(progress)} contado</span>
               {summary.counted > 0 ? (
                 <>
-                  {" · "}Diferencia neta{" "}
+                  <Sep />
+                  Diferencia neta{" "}
                   <span
                     className={cn(
                       "whitespace-nowrap font-bold",
@@ -247,7 +249,9 @@ function LiveIndicator({
     return (
       <span className="inline-flex items-center gap-2 rounded-sm bg-short/10 px-2.5 py-1 text-sm font-semibold text-short">
         <WifiOff className="size-4" aria-hidden="true" />
-        Sin conexión en vivo · recarga para ver lo último
+        Sin conexión en vivo
+        <Sep />
+        recarga para ver lo último
       </span>
     );
   }
@@ -269,7 +273,8 @@ function LiveIndicator({
           En vivo
           {lastEventAt ? (
             <span className="font-normal text-ink-muted">
-              · último conteo {formatRelative(new Date(lastEventAt))}
+              <Sep />
+              último conteo {formatRelative(new Date(lastEventAt))}
             </span>
           ) : null}
         </>

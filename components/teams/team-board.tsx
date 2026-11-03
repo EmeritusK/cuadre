@@ -19,6 +19,7 @@ import {
   type TeamResult,
 } from "@/lib/teams/actions";
 import { cn } from "@/lib/utils";
+import { Sep } from "@/components/ui/sep";
 
 export type BoardSupplier = { id: string; name: string; products: number; counted: number };
 export type BoardTeam = {
@@ -236,7 +237,8 @@ function TeamLine({
           />
         </div>
         <span className="shrink-0">
-          <span className="font-semibold text-ink">{formatInteger(products)}</span> productos ·{" "}
+          <span className="font-semibold text-ink">{formatInteger(products)}</span> productos
+          <Sep />
           {team.suppliers.length} proveedores
         </span>
       </div>
@@ -436,9 +438,15 @@ function UnassignedPool({
           Proveedores sin equipo
         </h2>
         <p className="mt-0.5 text-sm text-ink-muted">
-          {unassigned.length === 0
-            ? "Todos los proveedores tienen equipo."
-            : `${unassigned.length} proveedores · ${formatInteger(pendingProducts)} de ${formatInteger(totalProducts)} productos`}
+          {unassigned.length === 0 ? (
+            "Todos los proveedores tienen equipo."
+          ) : (
+            <>
+              {unassigned.length} proveedores
+              <Sep />
+              {formatInteger(pendingProducts)} de {formatInteger(totalProducts)} productos
+            </>
+          )}
         </p>
       </header>
 
