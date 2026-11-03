@@ -18,7 +18,7 @@ const STATUS_OPTIONS: { value: StatusFilter; label: string }[] = [
 ];
 
 const selectClass =
-  "h-10 rounded border border-rule-strong/40 bg-panel pl-3 pr-8 text-sm text-ink hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30";
+  "h-10 rounded border border-rule-strong/40 bg-panel pl-3 pr-8 text-base sm:text-sm text-ink hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30";
 
 type Props = {
   filters: Filters;
@@ -71,7 +71,7 @@ export function ProductFilters({ filters, suppliers, teams, sorts }: Props) {
             onChange={(event) => setQ(event.target.value)}
             placeholder="Buscar por código o descripción"
             aria-label="Buscar productos"
-            className="h-10 w-full rounded border border-rule-strong/40 bg-panel pl-9 pr-9 text-sm placeholder:text-ink-muted hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30"
+            className="h-10 w-full rounded border border-rule-strong/40 bg-panel pl-9 pr-9 text-base sm:text-sm placeholder:text-ink-muted hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30"
           />
           {pending ? (
             <Loader2

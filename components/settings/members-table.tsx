@@ -78,7 +78,7 @@ export function MembersTable({ currentUserId, isAdmin, members, invitations }: P
                           `Rol de ${member.name} actualizado.`,
                         )
                       }
-                      className="h-9 rounded border border-rule-strong/40 bg-panel pl-2.5 pr-8 text-sm"
+                      className="h-9 rounded border border-rule-strong/40 bg-panel pl-2.5 pr-8 text-base sm:text-sm"
                     >
                       {(Object.keys(ROLE_LABEL) as Role[]).map((role) => (
                         <option key={role} value={role}>

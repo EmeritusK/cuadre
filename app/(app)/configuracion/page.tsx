@@ -107,7 +107,7 @@ export default async function OrganizationSettingsPage() {
                     id="invite-role"
                     name="role"
                     defaultValue="counter"
-                    className="h-10 rounded border border-rule-strong/40 bg-panel pl-3 pr-8 text-sm"
+                    className="h-10 rounded border border-rule-strong/40 bg-panel pl-3 pr-8 text-base sm:text-sm"
                   >
                     {Object.entries(ROLE_LABEL).map(([value, label]) => (
                       <option key={value} value={value}>

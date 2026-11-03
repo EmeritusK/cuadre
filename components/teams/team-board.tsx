@@ -38,7 +38,7 @@ type Props = {
 };
 
 const selectClass =
-  "h-9 rounded border border-rule-strong/40 bg-panel pl-2.5 pr-8 text-sm hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30";
+  "h-9 rounded border border-rule-strong/40 bg-panel pl-2.5 pr-8 text-base sm:text-sm hover:border-rule-strong/70 focus-visible:border-cobalt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/30";
 
 function useAction() {
   const [pending, startTransition] = useTransition();
