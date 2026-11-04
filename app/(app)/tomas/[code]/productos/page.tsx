@@ -102,26 +102,26 @@ export default async function ProductsPage({ params, searchParams }: Props) {
         ) : null}
 
         <div className="relative overflow-x-auto rounded border border-rule bg-panel">
-          <table className="w-full min-w-[60rem] text-sm">
+          <table className="w-full text-sm lg:min-w-[60rem]">
             <caption className="sr-only">Productos de la toma</caption>
             <thead className="sticky top-0 bg-panel">
-              <tr className="border-b border-rule-strong/30 text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+              <tr className="border-b border-rule-strong/30 text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
                 <th scope="col" className="px-4 py-3">
                   Estado
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Producto
                 </th>
-                <th scope="col" className="px-4 py-3">
+                <th scope="col" className="hidden px-4 py-3 lg:table-cell">
                   Proveedor
                 </th>
-                <th scope="col" className="px-4 py-3 text-right">
+                <th scope="col" className="hidden px-4 py-3 text-right md:table-cell">
                   Sistema
                 </th>
-                <th scope="col" className="px-4 py-3 text-right">
+                <th scope="col" className="hidden px-4 py-3 text-right md:table-cell">
                   Contado
                 </th>
-                <th scope="col" className="px-4 py-3 text-right">
+                <th scope="col" className="hidden px-4 py-3 text-right sm:table-cell">
                   Dif. u
                 </th>
                 <th scope="col" className="px-4 py-3 text-right">
@@ -151,7 +151,7 @@ export default async function ProductsPage({ params, searchParams }: Props) {
                       <td className="px-4 py-2.5">
                         <StatusMark status={row.status} />
                       </td>
-                      <td className="max-w-[26rem] px-4 py-2.5">
+                      <td className="max-w-[11rem] px-4 py-2.5 sm:max-w-[20rem] lg:max-w-[26rem]">
                         <Link
                           href={href({ producto: row.id })}
                           scroll={false}
@@ -169,19 +169,21 @@ export default async function ProductsPage({ params, searchParams }: Props) {
                           ) : null}
                         </span>
                       </td>
-                      <td className="px-4 py-2.5">
+                      <td className="hidden px-4 py-2.5 lg:table-cell">
                         <span className="flex items-center gap-2">
                           <LineChip code={row.teamId ? (teamCode.get(row.teamId) ?? null) : null} />
                           <span className="max-w-[12rem] truncate">{row.supplierName}</span>
                         </span>
                       </td>
-                      <td className="px-4 py-2.5 text-right">{formatQuantity(row.systemQty)}</td>
-                      <td className="px-4 py-2.5 text-right">
+                      <td className="hidden px-4 py-2.5 text-right md:table-cell">
+                        {formatQuantity(row.systemQty)}
+                      </td>
+                      <td className="hidden px-4 py-2.5 text-right md:table-cell">
                         {counted ? formatQuantity(row.countedQty) : "—"}
                       </td>
                       <td
                         className={cn(
-                          "px-4 py-2.5 text-right",
+                          "hidden px-4 py-2.5 text-right sm:table-cell",
                           counted && row.difference < 0 && "text-short",
                           counted && row.difference > 0 && "text-over",
                         )}

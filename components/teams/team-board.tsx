@@ -63,7 +63,7 @@ export function TeamBoard({ sessionId, teams, unassigned, people, readOnly }: Pr
 
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_24rem] [&>*]:min-w-0">
-      <div className="grid content-start gap-4">
+      <div className="grid grid-cols-1 content-start gap-4 [&>*]:min-w-0">
         {!readOnly ? (
           <form
             className="flex flex-wrap items-end gap-2 rounded border border-rule bg-panel p-4"
@@ -76,7 +76,7 @@ export function TeamBoard({ sessionId, teams, unassigned, people, readOnly }: Pr
               });
             }}
           >
-            <div className="grid min-w-[14rem] flex-1 gap-1.5">
+            <div className="grid min-w-0 flex-1 basis-56 gap-1.5">
               <label htmlFor="new-team" className="text-sm font-semibold">
                 Nuevo equipo
               </label>
@@ -164,7 +164,7 @@ function TeamLine({
     >
       <header className="flex flex-wrap items-center gap-3 px-4 pt-4">
         <span
-          className="inline-flex h-7 items-center rounded-sm px-2.5 text-sm font-bold"
+          className="inline-flex h-7 items-center rounded-sm px-2.5 font-display text-[0.9375rem] font-semibold tracking-[0.06em]"
           style={{ backgroundColor: ink.ink, color: ink.onInk }}
         >
           {teamLabel(team.code)}
@@ -245,7 +245,7 @@ function TeamLine({
 
       <div className="grid gap-5 p-4 md:grid-cols-2">
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+          <h3 className="font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
             Proveedores
           </h3>
           {team.suppliers.length === 0 ? (
@@ -324,7 +324,9 @@ function TeamLine({
         </div>
 
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">Personas</h3>
+          <h3 className="font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+            Personas
+          </h3>
           {team.members.length === 0 ? (
             <p className="mt-2 text-sm text-ink-muted">
               Nadie asignado. Sin personas, nadie puede contar esta línea.

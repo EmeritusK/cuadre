@@ -210,7 +210,7 @@ export function ImportWizard({ defaultName }: { defaultName: string }) {
                       {formatInteger(result.rows.length)} filas
                     </caption>
                     <thead>
-                      <tr className="border-y border-rule text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+                      <tr className="border-y border-rule text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
                         <th scope="col" className="px-4 py-2">
                           Código
                         </th>

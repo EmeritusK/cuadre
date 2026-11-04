@@ -35,7 +35,7 @@ export function MembersTable({ currentUserId, isAdmin, members, invitations }: P
       <table className="w-full min-w-[36rem] text-sm">
         <caption className="sr-only">Miembros e invitaciones pendientes</caption>
         <thead>
-          <tr className="border-b border-rule text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+          <tr className="border-b border-rule text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
             <th scope="col" className="px-4 py-3">
               Persona
             </th>

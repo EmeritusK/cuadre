@@ -19,7 +19,7 @@ export default async function SessionsPage() {
   const [{ data: sessions }, { data: summaries }] = await Promise.all([
     supabase
       .from("count_sessions")
-      .select("id, code, name, status, created_at, closed_at, warehouses(name)")
+      .select("id, code, name, status, created_at, started_at, closed_at, warehouses(name)")
       .eq("org_id", org.id)
       .order("code", { ascending: false }),
     supabase.from("session_summary").select("*").eq("org_id", org.id),
@@ -48,31 +48,31 @@ export default async function SessionsPage() {
           <EmptySessions canImport={role === "admin"} />
         ) : (
           <div className="relative overflow-x-auto rounded border border-rule bg-panel">
-            <table className="w-full min-w-[56rem] text-sm">
+            <table className="w-full text-sm">
               <caption className="sr-only">
                 Tomas de la empresa, de la más reciente a la más antigua
               </caption>
               <thead>
-                <tr className="border-b border-rule-strong/30 text-left text-xs font-bold uppercase tracking-[0.06em] text-ink-muted">
+                <tr className="border-b border-rule-strong/30 text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
                   <th scope="col" className="px-4 py-3">
                     Toma
                   </th>
-                  <th scope="col" className="px-4 py-3">
+                  <th scope="col" className="hidden px-4 py-3 md:table-cell">
                     Bodega
                   </th>
-                  <th scope="col" className="px-4 py-3">
+                  <th scope="col" className="hidden px-4 py-3 sm:table-cell">
                     Estado
                   </th>
-                  <th scope="col" className="px-4 py-3 text-right">
+                  <th scope="col" className="hidden px-4 py-3 text-right lg:table-cell">
                     Productos
                   </th>
-                  <th scope="col" className="px-4 py-3">
+                  <th scope="col" className="hidden px-4 py-3 md:table-cell">
                     Avance
                   </th>
                   <th scope="col" className="px-4 py-3 text-right">
                     Diferencia
                   </th>
-                  <th scope="col" className="px-4 py-3 text-right">
+                  <th scope="col" className="hidden px-4 py-3 text-right md:table-cell">
                     Fecha
                   </th>
                 </tr>
@@ -96,14 +96,16 @@ export default async function SessionsPage() {
                         </Link>
                         <span className="block text-ink-muted">{session.name}</span>
                       </td>
-                      <td className="px-4 py-3">{session.warehouses?.name ?? "—"}</td>
-                      <td className="px-4 py-3">
+                      <td className="hidden px-4 py-3 md:table-cell">
+                        {session.warehouses?.name ?? "—"}
+                      </td>
+                      <td className="hidden px-4 py-3 sm:table-cell">
                         <SessionBadge status={session.status} />
                       </td>
-                      <td className="px-4 py-3 text-right">
+                      <td className="hidden px-4 py-3 text-right lg:table-cell">
                         {formatInteger(summary?.products ?? 0)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="hidden px-4 py-3 md:table-cell">
                         <div className="flex items-center gap-3">
                           <div
                             className="h-1.5 w-28 overflow-hidden rounded-full bg-rule"
@@ -126,8 +128,8 @@ export default async function SessionsPage() {
                       >
                         {formatSignedMoney(difference)}
                       </td>
-                      <td className="px-4 py-3 text-right text-ink-muted">
-                        {formatDate(session.closed_at ?? session.created_at)}
+                      <td className="hidden px-4 py-3 text-right text-ink-muted md:table-cell">
+                        {formatDate(session.closed_at ?? session.started_at ?? session.created_at)}
                       </td>
                     </tr>
                   );
