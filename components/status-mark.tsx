@@ -17,10 +17,13 @@ export function StatusMark({
   status,
   className,
   compact = false,
+  labelClassName,
 }: {
   status: CountStatus;
   className?: string;
   compact?: boolean;
+  /** Extra classes for the word, e.g. to hide it visually on phones. */
+  labelClassName?: string;
 }) {
   const meta = STATUS_META[status];
   const Icon = meta.icon;
@@ -37,7 +40,7 @@ export function StatusMark({
         strokeWidth={2.75}
         aria-hidden="true"
       />
-      <span className={cn(compact && "sr-only")}>{meta.label}</span>
+      <span className={cn(compact && "sr-only", labelClassName)}>{meta.label}</span>
     </span>
   );
 }

@@ -106,8 +106,8 @@ export default async function ProductsPage({ params, searchParams }: Props) {
             <caption className="sr-only">Productos de la toma</caption>
             <thead className="sticky top-0 bg-panel">
               <tr className="border-b border-rule-strong/30 text-left font-display text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
-                <th scope="col" className="px-4 py-3">
-                  Estado
+                <th scope="col" className="w-10 py-3 pl-4 pr-1 sm:w-auto sm:px-4">
+                  <span className="max-sm:sr-only">Estado</span>
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Producto
@@ -148,10 +148,10 @@ export default async function ProductsPage({ params, searchParams }: Props) {
                         selected && "bg-cobalt/5",
                       )}
                     >
-                      <td className="px-4 py-2.5">
-                        <StatusMark status={row.status} />
+                      <td className="py-2.5 pl-4 pr-1 sm:px-4">
+                        <StatusMark status={row.status} labelClassName="max-sm:sr-only" />
                       </td>
-                      <td className="max-w-[11rem] px-4 py-2.5 sm:max-w-[20rem] lg:max-w-[26rem]">
+                      <td className="max-w-[13.5rem] px-3 py-2.5 sm:max-w-[20rem] sm:px-4 lg:max-w-[26rem]">
                         <Link
                           href={href({ producto: row.id })}
                           scroll={false}

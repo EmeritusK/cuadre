@@ -347,7 +347,7 @@ function StripMaps({ sessionCode, lines, pulses }: NetworkMapProps) {
                         ) : null}
                         <StationGlyph station={station} x={17} y={17} r={10} />
                       </svg>
-                      <span className="min-w-0 flex-1 truncate text-sm font-semibold">
+                      <span className="min-w-0 flex-1 truncate font-display text-[0.9375rem] font-semibold uppercase tracking-[0.04em]">
                         {station.name}
                       </span>
                       <span className="shrink-0 text-sm text-ink-muted">
