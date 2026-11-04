@@ -37,14 +37,12 @@ export async function createTeam(sessionId: string, name: string): Promise<TeamR
   const parsed = teamName.safeParse(name);
   if (!parsed.success) return { error: parsed.error.issues[0]?.message };
 
-  const { error } = await auth.supabase
-    .from("teams")
-    .insert({
-      session_id: uuid.parse(sessionId),
-      org_id: auth.context.org.id,
-      name: parsed.data,
-      code: 0,
-    });
+  const { error } = await auth.supabase.from("teams").insert({
+    session_id: uuid.parse(sessionId),
+    org_id: auth.context.org.id,
+    name: parsed.data,
+    code: 0,
+  });
   return done(error, "No pudimos crear el equipo. ¿La toma está cerrada?");
 }
 
