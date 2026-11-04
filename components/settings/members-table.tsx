@@ -6,13 +6,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
 import { changeRole, removeFromOrganization, revokeInvitation } from "@/lib/org/settings-actions";
+import { ROLE_LABEL, type RoleKey } from "@/lib/roles";
 
-export const ROLE_LABEL = {
-  admin: "Administrador",
-  supervisor: "Supervisor",
-  counter: "Contador",
-} as const;
-type Role = keyof typeof ROLE_LABEL;
+type Role = RoleKey;
 
 type Props = {
   currentUserId: string;

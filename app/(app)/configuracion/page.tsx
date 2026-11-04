@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { MembersTable, ROLE_LABEL } from "@/components/settings/members-table";
+import { MembersTable } from "@/components/settings/members-table";
 import { SettingsForm } from "@/components/settings/settings-form";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { getActiveContext } from "@/lib/org/active";
 import { inviteMember, renameOrganization } from "@/lib/org/settings-actions";
+import { ROLE_LABEL } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Configuración" };
