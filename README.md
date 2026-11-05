@@ -45,7 +45,7 @@ The reconciliation lives in SQL views (`session_product_status`, `supplier_progr
 
 ## Getting started
 
-Requirements: Node 20, pnpm, Docker.
+Requirements: Node 22 or newer, pnpm, Docker.
 
 ```bash
 pnpm install
